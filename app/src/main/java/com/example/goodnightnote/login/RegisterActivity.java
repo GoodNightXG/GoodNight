@@ -66,16 +66,16 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "注册成功",
                                 Toast.LENGTH_SHORT).show();
                         finish();
-                }else{
+                    }else{
                         Toast.makeText(RegisterActivity.this, "确认密码错误",
                                 Toast.LENGTH_SHORT).show();
-                }
+                    }
                 }else{
                     Toast.makeText(RegisterActivity.this,
                             "密码长度为6-20位，且包含数字和字母",
                             Toast.LENGTH_SHORT).show();
                 }
-            }
+                }
         });
     }
 }

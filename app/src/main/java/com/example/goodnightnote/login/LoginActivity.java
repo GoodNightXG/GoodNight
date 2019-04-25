@@ -52,6 +52,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            // 是否退出App的标识
+            boolean isExitApp = intent.getBooleanExtra("exit", false);
+            if (isExitApp) {
+                // 关闭自身
+                this.finish();
+            }
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.bt_login:
@@ -106,6 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent intent = new Intent();
                     intent.setClass(LoginActivity.this,
                             com.example.goodnightnote.activity.MainActivity.class);
+                    intent.putExtra("extra_User",username);
                     startActivity(intent);
                    }
                 else{

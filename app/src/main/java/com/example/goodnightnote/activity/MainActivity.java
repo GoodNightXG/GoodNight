@@ -12,22 +12,31 @@ import java.util.Iterator;
 import java.util.Map;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.example.goodnightnote.R;
 import com.example.goodnightnote.adapter.NoteAdapter;
+import com.example.goodnightnote.login.LoginActivity;
+import com.example.goodnightnote.login.RegisterActivity;
 import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.SqliteUtil;
 import com.example.goodnightnote.domian.Note;
+import com.example.goodnightnote.utils.UserTableUtil;
 
 public class MainActivity extends Activity{
     public String EXPANDED = "EXPANDED";
@@ -37,6 +46,10 @@ public class MainActivity extends Activity{
     public int number;
     public Button numberButton;
     public Button topButton;
+    public Button LogoutButton;
+    public Button colorButton;
+    private RelativeLayout layout;
+    private static int flag = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,9 @@ public class MainActivity extends Activity{
         this.numberButton = ((Button) findViewById(R.id.number));
         this.topButton = ((Button) findViewById(R.id.topButton));
         this.listView = ((ListView) findViewById(R.id.listview));
+        this.LogoutButton = (Button) findViewById(R.id.LoButton);
+        this.colorButton = (Button)findViewById(R.id.ColorButton);
+        this.layout = (RelativeLayout) findViewById(R.id.mainId);
         // this.listView.setDivider(getResources().getDrawable(android.R.color.white));
         this.listView.setDivider(null);
         this.listView.setOnItemClickListener(new ItemClick());
@@ -56,6 +72,39 @@ public class MainActivity extends Activity{
                 Intent intent = new Intent(MainActivity.this,
                         WriteActivity.class);
                 startActivity(intent);
+
+            }
+        });
+
+        this.LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoDialog("是否注销当前账号并退出？");
+            }
+        });
+        this.colorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (flag) {
+                    case 1:
+                        layout.setBackground(getResources().getDrawable(R.drawable.blue,null));
+                        flag = flag + 1;
+                        break;
+                    case 2:
+                        layout.setBackground(getResources().getDrawable(R.drawable.green,null));
+                        flag = flag + 1;
+                        break;
+                    case 3:
+                        layout.setBackground(getResources().getDrawable(R.drawable.yello,null));
+                        flag = flag + 1;
+                        break;
+                    case 4:
+                        layout.setBackground(getResources().getDrawable(R.mipmap.background03,null));
+                        flag = 1;
+                        break;
+                        default:
+                            break;
+                }
 
             }
         });
@@ -125,5 +174,43 @@ public class MainActivity extends Activity{
             MainActivity.this.adapter.notifyDataSetChanged();
         }
     }
+        //注销对话框
+        public void LoDialog(String message) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+            dialog.setTitle(" ");
+            dialog.setMessage(message);
+            dialog.setCancelable(false);
+            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    UserTableUtil userTableUtil = new UserTableUtil();
+                    SQLiteDatabase localDatabase =
+                            new SqliteHelper(MainActivity.this,
+                                    null, null,0 )
+                                    .getWritableDatabase();
+                    Intent intent = getIntent();
+                    String username = intent.getStringExtra("extra_User");
+                    Log.d("TAG", username);
+                    userTableUtil.delete(localDatabase,username);
+                    ExitApp();
+                }
+            });
+            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
+                }
+            });
+            dialog.show();
+        }
+        public void ExitApp() {
+            Intent intent = new Intent();
+            intent.setClass(MainActivity.this, LoginActivity.class);
+
+            // 设置标记位
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("exit", true);
+            startActivity(intent);
+        }
 }

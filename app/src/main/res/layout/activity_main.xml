@@ -6,6 +6,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:id="@+id/mainId"
     android:background="@mipmap/background03">
 
     <Button
@@ -34,5 +35,28 @@
         android:layout_below="@id/topButton"
         android:layout_marginTop="33dp"
         android:listSelector="#00000000" />
+
+    <Button
+        android:id="@+id/LoButton"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@+id/number"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/blue"
+        android:textSize="10sp"
+        android:text="注销" />
+
+    <Button
+        android:id="@+id/ColorButton"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/LoButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="13dp"
+        android:background="@drawable/blue"
+        android:textSize="10sp"
+        android:text="换背景" />
 
 </RelativeLayout>

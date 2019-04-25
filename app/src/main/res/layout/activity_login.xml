@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="72dp"
         android:hint="password"
-        android:inputType="textPassword"
+        android:inputType="textVisiblePassword|textWebPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_username" />
 

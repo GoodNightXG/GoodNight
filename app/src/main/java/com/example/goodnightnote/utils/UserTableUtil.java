@@ -27,4 +27,10 @@ public class UserTableUtil {
 		Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
 		return cursor;
 	}
+	//删除操作
+	public void delete(SQLiteDatabase sqLiteDatabase, String username) {
+		sqLiteDatabase.execSQL("delete from table_user where username is ?" , new String[]{username});
+		sqLiteDatabase.close();
+
+	}
 }
