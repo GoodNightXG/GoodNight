@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="topButton"/>
+    <item type="id" name="number"/>
+    <item type="id" name="listview"/>
+    <item type="id" name="adLayout"/>
+    <item type="id" name="editdate"/>
+    <item type="id" name="edittexttwo"/>
+    <item type="id" name="editbutton"/>
+    <item type="id" name="editbutton2"/>
+    <item type="id" name="contentTextView"/>
+    <item type="id" name="dateTextView"/>
+    <item type="id" name="smallbutton2"/>
+    <item type="id" name="smallbutton1"/>
+    <item type="id" name="changedateview"/>
+    <item type="id" name="changecontentview"/>
+    <item type="id" name="stylebutton1"/>
+    <item type="id" name="stylebutton2"/>
+    <item type="id" name="writedate"/>
+    <item type="id" name="edittext"/>
+    <item type="id" name="button"/>
+    <item type="id" name="button2"/>
+    <item type="id" name="action_settings"/>
+</resources>

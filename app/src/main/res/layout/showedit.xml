@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  GoodNightNote编辑已有笔记的操作页面
+  Created by xiaoxi 20190420
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/edit_background">
+
+    <com.example.goodnightnote.view.DateLine
+        android:id="@id/editdate"
+        android:layout_width="300.0dip"
+        android:layout_height="30.0dip"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10.0dip"
+        android:background="@drawable/showtop"
+        android:gravity="center"
+        android:textColor="#ffff0000" />
+
+    <com.example.goodnightnote.view.DrawLine
+        android:id="@id/edittexttwo"
+        android:layout_width="300dp"
+        android:layout_height="240dp"
+        android:layout_below="@id/editdate"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/shape"
+        android:gravity="top"
+        android:lineSpacingExtra="10dp"
+        android:scrollbars="vertical"
+        android:textColor="#ff000000"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@id/editbutton"
+        android:layout_width="130.0dip"
+        android:layout_height="40.0dip"
+        android:layout_below="@id/edittexttwo"
+        android:layout_alignRight="@id/edittexttwo"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button"
+        android:text="取消"
+        android:textColor="#ffffffff" />
+
+    <Button
+        android:id="@id/editbutton2"
+        android:layout_width="130.0dip"
+        android:layout_height="40.0dip"
+        android:layout_below="@id/edittexttwo"
+        android:layout_alignLeft="@id/edittexttwo"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button"
+        android:text="保存"
+        android:textColor="#ffffffff" />
+
+</RelativeLayout>
