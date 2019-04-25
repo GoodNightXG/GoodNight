@@ -17,10 +17,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
 	  private static String INFONAME;
 	  private static String NAME;
+	  private static String USERTABLE;
 	  private static int VERSION = 1;
 
 	  static
 	  {
+	  	USERTABLE = "table_user";
 	    NAME = " table_notepad";
 	    INFONAME = "notepad.db";
 	  }
@@ -31,16 +33,18 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	  *   title TEXT,
 	  *   date TEXT,
 	  *   content TEXT)
-	  *   此条SQL语句会创建一张table_notepad表
+	  *   此条SQL语句会创建一张table_notepad表和一张table_user表
 	  * */
 	  //拼写SQL语句
-      public static final String CREARE_NOTE = "create table"+NAME
-	        +"(id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,date TEXT,content TEXT)";
+	  public static final String CREATE_USER = "create table "+USERTABLE
+			+" (username TEXT,password TEXT)";
+      public static final String CREARE_NOTE = "create table "+NAME
+	        +" (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,date TEXT,content TEXT)";
 
 
 	  //构造函数
 	  public SqliteHelper(Context paramContext, String paramString,
-						  SQLiteDatabase.CursorFactory paramCursorFactory, int paramInt)
+                          SQLiteDatabase.CursorFactory paramCursorFactory, int paramInt)
 	  {
 	    super(paramContext, INFONAME, null, VERSION);
 	  }
@@ -49,7 +53,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	  public void onCreate(SQLiteDatabase paramSQLiteDatabase)
 	  {
 	  	//执行SQL语句
-	    paramSQLiteDatabase.execSQL(CREARE_NOTE);
+	    paramSQLiteDatabase.execSQL(CREATE_USER);
+		paramSQLiteDatabase.execSQL(CREARE_NOTE);
+
 	  }
 
 	  public void onUpgrade(SQLiteDatabase paramSQLiteDatabase, int paramInt1, int paramInt2)

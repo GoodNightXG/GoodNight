@@ -10,8 +10,6 @@ import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
 import com.example.goodnightnote.R;
-import com.example.goodnightnote.login.LoginActivity;
-
 /**
 
  *Time:2019/04/16
@@ -42,7 +40,8 @@ public class SplashActivity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //页面的跳转
-                Intent intent=new Intent(SplashActivity.this, LoginActivity.class);
+                Intent intent=new Intent(SplashActivity.this,
+                        com.example.goodnightnote.login.LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

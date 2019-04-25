@@ -2,26 +2,29 @@ package com.example.goodnightnote.activity;
 /**
 
  *Time:2019/04/18
- *Author: xiaoxi
+ *Author: xiaoxi  wangsheng
  *Description:
-
  */
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import com.example.goodnightnote.adapter.NoteAdapter;
+
 import com.example.goodnightnote.R;
+import com.example.goodnightnote.adapter.NoteAdapter;
 import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.SqliteUtil;
 import com.example.goodnightnote.domian.Note;
@@ -56,6 +59,7 @@ public class MainActivity extends Activity{
 
             }
         });
+
     }
 
     @Override
@@ -120,7 +124,6 @@ public class MainActivity extends Activity{
             }
             MainActivity.this.adapter.notifyDataSetChanged();
         }
-
     }
 
 }
