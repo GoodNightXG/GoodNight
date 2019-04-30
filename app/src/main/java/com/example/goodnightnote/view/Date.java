@@ -18,21 +18,27 @@ public class Date {
 		int l = localCalendar.get(11);
 		int i1 = localCalendar.get(12);
 		int i2 = localCalendar.get(10);
+		String am = "上午";
+		String pm = "下午";
 		if ( l >= 13 ) {
-			if (i2 == 0)
+			if (i2 == 0) {
 				i2 = 12;
-			if (i1 < 10)
-				return i + "-" + j + "-" + k + "           " + "下午" + " " + i2
+			}
+			if (i1 < 10) {
+				return i + "-" + j + "-" + k + "           " + pm + " " + i2
 						+ ":" + "0" + i1;
-			return i + "-" + j + "-" + k + "           " + "下午" + " " + i2
+			}
+			return i + "-" + j + "-" + k + "           " + pm + " " + i2
 					+ ":" + i1;
 		}
-		if ( i2 == 0 )
+		if ( i2 == 0 ) {
 			i2 = 12;
-		if ( i1 < 10 )
-			return i + "-" + j + "-" + k + "           " + "下午" + " " + i2
+		}
+		if ( i1 < 10 ) {
+			return i + "-" + j + "-" + k + "           " + pm + " " + i2
 					+ ":" + "0" + i1;
-		return i + "-" + j + "-" + k + "           " + "上午" + " " + i2 + ":"
+		}
+		return i + "-" + j + "-" + k + "           " + pm + " " + i2 + ":"
 				+ i1;
 
 	}

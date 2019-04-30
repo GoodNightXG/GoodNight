@@ -44,7 +44,7 @@ public class EditActivity extends BaseActivity {
 		this.content = getIntent().getStringExtra("contentItem");
 		this.id = getIntent().getStringExtra("idItem");
 
-		System.out.println("-----idItem-----id=" + id);
+
 		this.editText.setSelection(this.editText.length());
 		this.editText.setText(this.content);
 		this.textView.setText(this.date);
@@ -64,19 +64,19 @@ public class EditActivity extends BaseActivity {
 				String strContent = EditActivity.this.editText.getText()
 						.toString();
 				if (strContent.equals("")) {
-					Toast.makeText(EditActivity.this.context, "内容为空",
+					Toast.makeText(EditActivity.this.context, EditActivity.this.getResources().getText(R.string.empty_content),
 							Toast.LENGTH_SHORT).show();
 					return;
+				} else {
+					String strTitle = strContent.length() > 11 ? " "
+							+ strContent.substring(0, 11) : strContent;
+					localNote.setContent(strContent);
+					localNote.setTitle(strTitle);
+					localNote.setdata(date);
+					localNote.setid(id);
+					localSqliteUtil.update(localSqLiteDatabase, localNote);
+					finish();
 				}
-				String strTitle = strContent.length() > 11 ? " "
-						+ strContent.substring(0, 11) : strContent;
-				localNote.setContent(strContent);
-				localNote.setTitle(strTitle);
-				localNote.setdata(date);
-				localNote.setid(id);
-				System.out.println("-----id-----id=" + id);
-				localSqliteUtil.update(localSqLiteDatabase, localNote);
-				finish();
 			}
 		});
 		this.cancelButton.setOnClickListener(new View.OnClickListener() {

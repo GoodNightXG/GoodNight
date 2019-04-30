@@ -27,6 +27,7 @@ public class WriteActivity extends BaseActivity {
 	private Date getDate;
 	private Button sureButton;
 	private TextView textView;
+	private static String sShowText;
 
 	protected void onCreate(Bundle paramBundle)
 	{
@@ -49,7 +50,8 @@ public class WriteActivity extends BaseActivity {
 				SqliteUtil localSqliteUtil = new SqliteUtil();
 				String strContent = WriteActivity.this.editText.getText().toString();
 				if (strContent.equals("")) {
-					Toast.makeText(WriteActivity.this.context, "内容为空", Toast.LENGTH_SHORT).show();
+					sShowText =  (String) WriteActivity.this.getResources().getText(R.string.empty_content);
+					Toast.makeText(WriteActivity.this.context,sShowText, Toast.LENGTH_SHORT).show();
 					return;
 				}
 				String strTitle=strContent.length()>11?" "+strContent.substring(0, 11):strContent;

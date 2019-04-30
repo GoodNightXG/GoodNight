@@ -20,21 +20,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	  private static String USERTABLE;
 	  private static int VERSION = 1;
 
-	  static
-	  {
+	  static {
 	  	USERTABLE = "table_user";
 	    NAME = " table_notepad";
 	    INFONAME = "notepad.db";
 	  }
-	  /*
-	  * SQL 语句
-	  * create table NAME (
-	  *   id INTEGER PRIMARY KEY AUTOINCREMENT,
-	  *   title TEXT,
-	  *   date TEXT,
-	  *   content TEXT)
-	  *   此条SQL语句会创建一张table_notepad表和一张table_user表
-	  * */
+
 	  //拼写SQL语句
 	  public static final String CREATE_USER = "create table "+USERTABLE
 			+" (username TEXT,password TEXT)";

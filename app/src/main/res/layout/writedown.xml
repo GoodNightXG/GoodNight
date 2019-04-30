@@ -10,53 +10,50 @@
 
     <com.example.goodnightnote.view.DateLine
         android:id="@+id/writedate"
-        android:layout_width="300.0dip"
-        android:layout_height="30.0dip"
+        android:layout_width="@dimen/with300"
+        android:layout_height="@dimen/top30"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10.0dip"
+        android:layout_marginTop="@dimen/top10"
         android:background="@drawable/showtop"
         android:gravity="center"
-        android:textColor="#ffff0000" />
+        android:textColor="@color/focolor" />
 
     <com.example.goodnightnote.view.DrawLine
         android:id="@+id/edittext"
-        android:layout_width="300.0dip"
-        android:layout_height="240.0dip"
+        android:layout_width="@dimen/with300"
+        android:layout_height="@dimen/height240"
         android:layout_below="@id/writedate"
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape"
         android:gravity="top"
-        android:lineSpacingExtra="3.0dip"
+        android:lineSpacingExtra="@dimen/line3"
         android:scrollbars="vertical"
-        android:textColor="#ff000000"
-        android:textSize="18.0sp" />
+        android:textColor="@color/ffcolor"
+        android:textSize="@dimen/textsize18" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="130.0dip"
-        android:layout_height="40.0dip"
+        android:layout_width="@dimen/left130"
+        android:layout_height="@dimen/width40"
         android:layout_alignEnd="@+id/edittext"
         android:layout_alignRight="@+id/edittext"
         android:layout_below="@+id/edittext"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="@dimen/top30"
         android:background="@drawable/button"
-        android:text="取消"
-        android:textColor="#ffffffff" />
+        android:text="@string/cancel"
+        android:textColor="@color/fcolor" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="130.0dip"
-        android:layout_height="40.0dip"
+        android:layout_width="@dimen/left130"
+        android:layout_height="@dimen/width40"
         android:layout_alignStart="@+id/edittext"
         android:layout_alignLeft="@+id/edittext"
         android:layout_alignRight="@+id/edittext"
         android:layout_alignBottom="@+id/button"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="170dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginRight="@dimen/right170"
+        android:layout_marginTop="@dimen/top30"
         android:background="@drawable/button"
-        android:text="保存"
-        android:textColor="#ffffffff" />
+        android:text="@string/save"
+        android:textColor="@color/fcolor" />
 </RelativeLayout>

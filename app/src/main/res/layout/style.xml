@@ -10,43 +10,43 @@
 
     <com.example.goodnightnote.view.DateLine
         android:id="@+id/changedateview"
-        android:layout_width="300.0dip"
-        android:layout_height="27.0dip"
+        android:layout_width="@dimen/with300"
+        android:layout_height="@dimen/width27"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8.0dip"
+        android:layout_marginTop="@dimen/top10"
         android:background="@drawable/showtop"
         android:gravity="center"
-        android:textColor="#ffff0000" />
+        android:textColor="@color/focolor" />
 
     <com.example.goodnightnote.view.TextViewLine
         android:id="@+id/changecontentview"
-        android:layout_width="300.0dip"
+        android:layout_width="@dimen/with300"
         android:layout_height="wrap_content"
         android:layout_below="@id/changedateview"
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape"
-        android:lineSpacingExtra="6.0dip"
-        android:minHeight="68.0dip"
-        android:textColor="#ff000000"
-        android:textSize="18.0sp" />
+        android:lineSpacingExtra="@dimen/line"
+        android:minHeight="@dimen/height68"
+        android:textColor="@color/ffcolor"
+        android:textSize="@dimen/textsize18" />
 
     <Button
         android:id="@+id/stylebutton1"
-        android:layout_width="27.0dip"
-        android:layout_height="27.0dip"
+        android:layout_width="@dimen/width27"
+        android:layout_height="@dimen/width27"
         android:layout_above="@id/changecontentview"
         android:layout_alignLeft="@id/changecontentview"
-        android:layout_marginLeft="7.0dip"
+        android:layout_marginLeft="@dimen/right7"
         android:background="@drawable/smallbutton1"
         android:focusable="false" />
 
     <Button
         android:id="@+id/stylebutton2"
-        android:layout_width="27.0dip"
-        android:layout_height="27.0dip"
+        android:layout_width="@dimen/width27"
+        android:layout_height="@dimen/width27"
         android:layout_above="@id/changecontentview"
         android:layout_alignRight="@id/changecontentview"
-        android:layout_marginRight="7.0dip"
+        android:layout_marginRight="@dimen/right7"
         android:background="@drawable/smallbutton2"
         android:focusable="false" />
 </RelativeLayout>

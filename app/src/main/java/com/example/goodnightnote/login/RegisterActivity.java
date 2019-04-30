@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.goodnightnote.R;
+import com.example.goodnightnote.activity.MainActivity;
 import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.UserTableUtil;
 
@@ -24,6 +25,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mPassword;
     private EditText mPwd;
     private Button mButton;
+    private static String sShowText;
+    private final static String REGEX = "^(?!([a-zA-Z]+|\\d+)$)[a-zA-Z\\d]{6,20}$";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,44 +41,56 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 UserTableUtil userTableUtil = new UserTableUtil();
-                String username  = mUsername.getText().toString();
+                String username = mUsername.getText().toString();
                 String password = mPassword.getText().toString();
                 String pwd = mPwd.getText().toString();
                 SQLiteDatabase localDatabase =
                         new SqliteHelper(RegisterActivity.this,
-                                null, null,0 )
+                                null, null, 0)
                                 .getWritableDatabase();
                 Cursor cursor =
-                userTableUtil.query(localDatabase, username);
-                if(username.equals("")||password.equals("")||pwd.equals("")){
-                    Toast.makeText(RegisterActivity.this, "请输入账号和密码",
+                        userTableUtil.query(localDatabase, username);
+                if (username.equals("") || password.equals("") || pwd.equals("")) {
+                    sShowText = (String) RegisterActivity.this.getResources()
+                            .getText(R.string.please_input);
+                    Toast.makeText(RegisterActivity.this, sShowText,
                             Toast.LENGTH_SHORT).show();
                     return;
-                }
-                if(cursor.getCount() != 0){
-                    cursor.moveToFirst();
-                    Toast.makeText(RegisterActivity.this, "该账号已被注册",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                String regex = "^(?!([a-zA-Z]+|\\d+)$)[a-zA-Z\\d]{6,20}$";
-                if(password.matches(regex)) {
+                } else {
+                    if (cursor.getCount() != 0) {
+                        cursor.moveToFirst();
+                        sShowText = (String) RegisterActivity.this.getResources()
+                                .getText(R.string.account_exiet);
+                        Toast.makeText(RegisterActivity.this, sShowText,
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
 
-                    if (password.equals(pwd)){
-                        userTableUtil.add(localDatabase,username,password);
-                        Toast.makeText(RegisterActivity.this, "注册成功",
-                                Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else{
-                        Toast.makeText(RegisterActivity.this, "确认密码错误",
-                                Toast.LENGTH_SHORT).show();
+                        if (password.matches(REGEX)) {
+
+                            if (password.equals(pwd)) {
+                                userTableUtil.add(localDatabase, username, password);
+                                sShowText = (String) RegisterActivity.this.getResources()
+                                        .getText(R.string.register_success);
+                                Toast.makeText(RegisterActivity.this, sShowText,
+                                        Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                sShowText = (String) RegisterActivity.this.getResources()
+                                        .getText(R.string.confirm_pssword_error);
+                                Toast.makeText(RegisterActivity.this, sShowText,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            sShowText = (String) RegisterActivity.this.getResources()
+                                    .getText(R.string.password_specification);
+                            Toast.makeText(RegisterActivity.this,
+                                    sShowText,
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
-                }else{
-                    Toast.makeText(RegisterActivity.this,
-                            "密码长度为6-20位，且包含数字和字母",
-                            Toast.LENGTH_SHORT).show();
                 }
-                }
+            }
         });
     }
 }

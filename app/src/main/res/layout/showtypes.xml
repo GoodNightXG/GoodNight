@@ -9,41 +9,41 @@
 
     <TextView
         android:id="@+id/contentTextView"
-        android:layout_width="300.0dip"
-        android:layout_height="68.0dip"
+        android:layout_width="@dimen/with300"
+        android:layout_height="@dimen/height68"
         android:layout_below="@id/dateTextView"
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape"
-        android:textColor="#ff000000"
-        android:textSize="18.0sp" />
+        android:textColor="@color/ffcolor"
+        android:textSize="@dimen/textsize4" />
 
     <TextView
         android:id="@+id/dateTextView"
-        android:layout_width="300.0dip"
-        android:layout_height="27.0dip"
+        android:layout_width="@dimen/with300"
+        android:layout_height="@dimen/top30"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="8.0dip"
+        android:layout_marginTop="@dimen/top10"
         android:background="@drawable/showtop"
         android:gravity="center"
-        android:textColor="#ffff0000" />
+        android:textColor="@color/focolor" />
 
     <Button
         android:id="@+id/smallbutton2"
-        android:layout_width="27.0dip"
-        android:layout_height="27.0dip"
+        android:layout_width="@dimen/width27"
+        android:layout_height="@dimen/width27"
         android:layout_above="@id/contentTextView"
         android:layout_alignRight="@id/contentTextView"
-        android:layout_marginRight="7.0dip"
+        android:layout_marginRight="@dimen/right7"
         android:background="@drawable/smallbutton2"
         android:focusable="false" />
 
     <Button
         android:id="@+id/smallbutton1"
-        android:layout_width="27.0dip"
-        android:layout_height="27.0dip"
+        android:layout_width="@dimen/width27"
+        android:layout_height="@dimen/width27"
         android:layout_above="@id/contentTextView"
         android:layout_alignLeft="@id/contentTextView"
-        android:layout_marginLeft="7.0dip"
+        android:layout_marginLeft="@dimen/right7"
         android:background="@drawable/smallbutton1"
         android:focusable="false" />
 </RelativeLayout>

@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.goodnightnote.R;
+import com.example.goodnightnote.activity.MainActivity;
 import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.UserTableUtil;
 
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CheckBox mCheckBox;
     private SharedPreferences mSharedPreference;
     private SharedPreferences.Editor mEditor;
+    private static String sShowText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +93,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String password = mEditPassword.getText().toString().trim();
         //判断非空
         if (username .equals("")  || password .equals("")){
-            Toast.makeText(LoginActivity.this,"用户名和密码不能为空",
+            sShowText = (String)LoginActivity.this.getResources().getText(R.string.empty_count);
+            Toast.makeText(LoginActivity.this, sShowText,
                     Toast.LENGTH_SHORT).show();
         }else {
             Cursor cursor = userTableUtil.query(localDatabase, username);
@@ -103,7 +106,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         cursor.getString(cursor.getColumnIndex("password"));
                 //判断密码是否正确
                 if (pwd.equals(password)) {
-                    Toast.makeText(LoginActivity.this,"登陆成功",
+                    sShowText = (String)LoginActivity.this.getResources().
+                            getText(R.string.login_success);
+                    Toast.makeText(LoginActivity.this,sShowText,
                             Toast.LENGTH_SHORT).show();
                     mEditor = mSharedPreference.edit();
                     //判断是否勾选记住密码
@@ -123,11 +128,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     startActivity(intent);
                    }
                 else{
-                    Toast.makeText(LoginActivity.this, "用户名或密码错误",
+                    String string = (String)LoginActivity.this.getResources().
+                            getText(R.string.password_error);
+                    Toast.makeText(LoginActivity.this, string,
                             Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(LoginActivity.this, "用户未注册",
+                sShowText = (String)LoginActivity.this.getResources().
+                        getText(R.string.no_this_count);
+                    Toast.makeText(LoginActivity.this, sShowText,
                         Toast.LENGTH_SHORT).show();
             }
         }

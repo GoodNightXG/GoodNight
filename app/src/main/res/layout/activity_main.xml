@@ -12,51 +12,39 @@
     <Button
         android:id="@+id/topButton"
         android:layout_width="fill_parent"
-        android:layout_height="55.0dip"
+        android:layout_height="@dimen/height55"
         android:background="@drawable/topbutton"
-        android:paddingRight="20dp"
+        android:paddingRight="@dimen/top20"
         android:text="@string/top_text"
-        android:textColor="#ffffffff" />
+        android:textColor="@color/fcolor" />
 
     <Button
         android:id="@+id/number"
-        android:layout_width="55.0dip"
-        android:layout_height="55.0dip"
+        android:layout_width="@dimen/height55"
+        android:layout_height="@dimen/height55"
         android:layout_alignParentRight="true"
         android:layout_alignRight="@id/topButton"
-        android:layout_marginRight="17.0dip"
+        android:layout_marginRight="@dimen/right17"
         android:background="@drawable/number"
-        android:textColor="#ffffffff" />
+        android:textColor="@color/fcolor" />
 
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="391dp"
+        android:layout_height="@dimen/height390"
         android:layout_below="@id/topButton"
-        android:layout_marginTop="33dp"
-        android:listSelector="#00000000" />
+        android:layout_marginTop="@dimen/top33"
+        android:listSelector="@color/ocolor" />
 
     <Button
-        android:id="@+id/LoButton"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
+        android:id="@+id/lobutton"
+        android:layout_width="@dimen/width40"
+        android:layout_height="@dimen/top20"
         android:layout_alignEnd="@+id/number"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="-8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/Bottom5"
         android:background="@drawable/blue"
-        android:textSize="10sp"
-        android:text="注销" />
-
-    <Button
-        android:id="@+id/ColorButton"
-        android:layout_width="40dp"
-        android:layout_height="20dp"
-        android:layout_alignTop="@+id/LoButton"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="13dp"
-        android:background="@drawable/blue"
-        android:textSize="10sp"
-        android:text="换背景" />
+        android:textSize="@dimen/textsize3"
+        android:text="@string/logout" />
 
 </RelativeLayout>

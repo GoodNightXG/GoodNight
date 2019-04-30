@@ -39,33 +39,31 @@ import com.example.goodnightnote.domian.Note;
 import com.example.goodnightnote.utils.UserTableUtil;
 
 public class MainActivity extends Activity{
-    public String EXPANDED = "EXPANDED";
-    public NoteAdapter adapter;
-    public ArrayList<Map<String, Object>> itemList;
-    public ListView listView;
-    public int number;
-    public Button numberButton;
-    public Button topButton;
-    public Button LogoutButton;
-    public Button colorButton;
-    private RelativeLayout layout;
-    private static int flag = 1;
+    private final static String EXPANDED = "EXPANDED";
+    private NoteAdapter mAdapter;
+    private ArrayList<Map<String, Object>> mItemList;
+    private ListView mListView;
+    private static int sNumber;
+    private Button mNumberButton;
+    private Button mTopButton;
+    private Button mLogoutButton;
+    private RelativeLayout mLayout;
+    private static String sShowText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.numberButton = ((Button) findViewById(R.id.number));
-        this.topButton = ((Button) findViewById(R.id.topButton));
-        this.listView = ((ListView) findViewById(R.id.listview));
-        this.LogoutButton = (Button) findViewById(R.id.LoButton);
-        this.colorButton = (Button)findViewById(R.id.ColorButton);
-        this.layout = (RelativeLayout) findViewById(R.id.mainId);
+        this.mNumberButton = ((Button) findViewById(R.id.number));
+        this.mTopButton = ((Button) findViewById(R.id.topButton));
+        this.mListView = ((ListView) findViewById(R.id.listview));
+        this.mLogoutButton = (Button) findViewById(R.id.lobutton);
+        this.mLayout = (RelativeLayout) findViewById(R.id.mainId);
         // this.listView.setDivider(getResources().getDrawable(android.R.color.white));
-        this.listView.setDivider(null);
-        this.listView.setOnItemClickListener(new ItemClick());
-        this.topButton.setOnClickListener(new View.OnClickListener() {
+        this.mListView.setDivider(null);
+        this.mListView.setOnItemClickListener(new ItemClick());
+        this.mTopButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -76,44 +74,18 @@ public class MainActivity extends Activity{
             }
         });
 
-        this.LogoutButton.setOnClickListener(new View.OnClickListener() {
+        this.mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoDialog("是否注销当前账号并退出？");
+
+
+                LoDialog((String)MainActivity.this.getResources().getText(R.string.exit_app));
             }
         });
-        this.colorButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (flag) {
-                    case 1:
-                        layout.setBackground(getResources().getDrawable(R.drawable.blue,null));
-                        flag = flag + 1;
-                        break;
-                    case 2:
-                        layout.setBackground(getResources().getDrawable(R.drawable.green,null));
-                        flag = flag + 1;
-                        break;
-                    case 3:
-                        layout.setBackground(getResources().getDrawable(R.drawable.yello,null));
-                        flag = flag + 1;
-                        break;
-                    case 4:
-                        layout.setBackground(getResources().getDrawable(R.mipmap.background03,null));
-                        flag = 1;
-                        break;
-                        default:
-                            break;
-                }
-
-            }
-        });
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
@@ -125,7 +97,7 @@ public class MainActivity extends Activity{
     }
 
     public void showUpdate() {
-        this.itemList = new ArrayList<Map<String, Object>>();
+        this.mItemList = new ArrayList<Map<String, Object>>();
         SQLiteDatabase localSqLiteDatabase = new SqliteHelper(this,
                 null, null,
                 0).getReadableDatabase();
@@ -133,12 +105,12 @@ public class MainActivity extends Activity{
                 localSqLiteDatabase).iterator();
         while (true) {
             if (!localIterator.hasNext()) {
-                Collections.reverse(this.itemList);
-                this.adapter = new NoteAdapter(this, this.itemList);
-                this.listView.setAdapter(this.adapter);
-                if (this.itemList.size()==0) {
-                    number=0;
-                    this.numberButton.setText("");
+                Collections.reverse(this.mItemList );
+                this.mAdapter = new NoteAdapter(this, this.mItemList );
+                this.mListView.setAdapter(this.mAdapter);
+                if (this.mItemList.size()==0) {
+                    sNumber=0;
+                    this.mNumberButton.setText("");
                 }
                 return;
             }
@@ -150,10 +122,9 @@ public class MainActivity extends Activity{
             localHashMap.put("idItem", localNote.getid());
             // 默认笔记是摊开还是折叠，true为摊开
             localHashMap.put("EXPANDED", Boolean.valueOf(false));
-            this.itemList.add(localHashMap);
-            this.number = this.itemList.size();
-            System.out.println("number----------number=" + number);
-            this.numberButton.setText("(" + this.number + ")");
+            this.mItemList.add(localHashMap);
+            this.sNumber = this.mItemList.size();
+            this.mNumberButton.setText("(" + this.sNumber + ")");
         }
 
     }
@@ -163,15 +134,14 @@ public class MainActivity extends Activity{
         @Override
         public void onItemClick(AdapterView<?> paramAdapterView,
                                 View paramView, int paramInt, long paramLong) {
-            System.out.println("item----------click");
-            Map<String, Object> localMap = MainActivity.this.itemList
+            Map<String, Object> localMap = MainActivity.this.mItemList
                     .get(paramInt);
             if (((Boolean) localMap.get("EXPANDED")).booleanValue()) {
                 localMap.put("EXPANDED", Boolean.valueOf(false));
             } else {
                 localMap.put("EXPANDED", Boolean.valueOf(true));
             }
-            MainActivity.this.adapter.notifyDataSetChanged();
+            MainActivity.this.mAdapter.notifyDataSetChanged();
         }
     }
         //注销对话框
@@ -180,7 +150,8 @@ public class MainActivity extends Activity{
             dialog.setTitle(" ");
             dialog.setMessage(message);
             dialog.setCancelable(false);
-            dialog.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            sShowText = (String)MainActivity.this.getResources().getText(R.string.ok);
+            dialog.setPositiveButton(sShowText, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     UserTableUtil userTableUtil = new UserTableUtil();
@@ -190,12 +161,12 @@ public class MainActivity extends Activity{
                                     .getWritableDatabase();
                     Intent intent = getIntent();
                     String username = intent.getStringExtra("extra_User");
-                    Log.d("TAG", username);
                     userTableUtil.delete(localDatabase,username);
-                    ExitApp();
+                    exitApp();
                 }
             });
-            dialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            sShowText = (String)MainActivity.this.getResources().getText(R.string.cancel);
+            dialog.setNegativeButton(sShowText, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 
@@ -203,7 +174,7 @@ public class MainActivity extends Activity{
             });
             dialog.show();
         }
-        public void ExitApp() {
+        public void exitApp() {
             Intent intent = new Intent();
             intent.setClass(MainActivity.this, LoginActivity.class);
 

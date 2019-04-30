@@ -28,6 +28,7 @@ import com.example.goodnightnote.R;
 import com.example.goodnightnote.activity.EditActivity;
 import com.example.goodnightnote.activity.MainActivity;
 import com.example.goodnightnote.domian.Note;
+import com.example.goodnightnote.login.LoginActivity;
 import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.SqliteUtil;
 import com.example.goodnightnote.view.TextViewLine;
@@ -38,7 +39,9 @@ public class NoteAdapter extends BaseAdapter {
 	public Context activity;
 	public LayoutInflater inflater;
 	public ArrayList<Map<String, Object>> list;
-
+	private final  String sShowText1 = "确认删除？";
+	private final String sShowText2 = "确定";
+	private final String sShowText3 = "取消";
 	public NoteAdapter(Activity activity, ArrayList<Map<String, Object>> list) {
 
 		this.context = activity;
@@ -142,8 +145,8 @@ public class NoteAdapter extends BaseAdapter {
 		@Override
 		public void onClick(View v) {
 			Builder builder = new Builder(context);
-			builder.setTitle("确定删除？");
-			builder.setPositiveButton("删除",
+			builder.setTitle(sShowText1);
+			builder.setPositiveButton(sShowText2,
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -162,7 +165,7 @@ public class NoteAdapter extends BaseAdapter {
 
 						}
 					});
-			builder.setNegativeButton("取消",
+			builder.setNegativeButton(sShowText3,
 					new DialogInterface.OnClickListener() {
 
 						@Override

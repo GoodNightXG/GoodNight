@@ -11,12 +11,5 @@
     android:background="@mipmap/splash"
     tools:context="com.example.goodnightnote.activity.SplashActivity">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp"
-        android:textSize="50dp"
-        android:textColor="#fff" />
+
 </RelativeLayout>

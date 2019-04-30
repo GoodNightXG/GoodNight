@@ -17,7 +17,7 @@ import com.example.goodnightnote.domian.Note;
 
 public class SqliteUtil {
 
-	public static String table = "table_notepad";
+	private final static String TABLE = "table_notepad";
 
 	//增加操作
 	public long add(SQLiteDatabase paramSQLiteDatabase, Note paramNote) {
@@ -29,21 +29,21 @@ public class SqliteUtil {
 		localContentValues.put("title", paramNote.getTitle());
 		localContentValues.put("date", paramNote.getdata());
 		localContentValues.put("content", paramNote.getContent());
-		long l = paramSQLiteDatabase.insert(table, null, localContentValues);
+		long l = paramSQLiteDatabase.insert(TABLE, null, localContentValues);
 		paramSQLiteDatabase.close();
 		return l;
 	}
 
 	//删除操作
 	public void delete(SQLiteDatabase paramSQLiteDatabase, Note paramNote) {
-		paramSQLiteDatabase.delete(table, "id=" + paramNote.getid(), null);
+		paramSQLiteDatabase.delete(TABLE, "id=" + paramNote.getid(), null);
 		paramSQLiteDatabase.close();
 	}
 
 	//查找操作
 	public ArrayList<Note> query(SQLiteDatabase paramSQLiteDatabase) {
 		ArrayList<Note> localArrayList = new ArrayList<Note>();
-		Cursor localCursor = paramSQLiteDatabase.query(table, new String[] {
+		Cursor localCursor = paramSQLiteDatabase.query(TABLE, new String[] {
 						"id", "title", "content", "date" }, null,
 				null, null, null,
 				null);
@@ -71,7 +71,7 @@ public class SqliteUtil {
 		localContentValues.put("title", paramNote.getTitle());
 		localContentValues.put("content", paramNote.getContent());
 		localContentValues.put("date", paramNote.getdata());
-		paramSQLiteDatabase.update(table, localContentValues, "id="
+		paramSQLiteDatabase.update(TABLE, localContentValues, "id="
 				+ paramNote.getid(), null);
 		paramSQLiteDatabase.close();
 	}
