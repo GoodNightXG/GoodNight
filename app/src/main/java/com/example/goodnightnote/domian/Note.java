@@ -1,6 +1,8 @@
 package com.example.goodnightnote.domian;
 
 
+import com.example.goodnightnote.R;
+
 /**
 
  *Time:2019/04/18
@@ -9,40 +11,58 @@ package com.example.goodnightnote.domian;
 
  */
 public class Note {
-	public String content;
-	public String data;
-	public String id;
-	public String title;
+	private String mContent;
+	private String mData;
+	private String mId;
+	private String mTitle;
+	private static String sType = R.string.empty+"";
+	private String mUser;
 
-	public String getContent() {
-		return this.content;
+	public String getmContent() {
+		return mContent;
 	}
 
-	public String getTitle() {
-		return this.title;
+	public void setmContent(String mContent) {
+		this.mContent = mContent;
 	}
 
-	public String getdata() {
-		return this.data;
+	public String getmData() {
+		return mData;
 	}
 
-	public String getid() {
-		return this.id;
+	public void setmData(String mData) {
+		this.mData = mData;
 	}
 
-	public void setContent(String paramString) {
-		this.content = paramString;
+	public String getmId() {
+		return mId;
 	}
 
-	public void setTitle(String paramString) {
-		this.title = paramString;
+	public void setmId(String mId) {
+		this.mId = mId;
 	}
 
-	public void setdata(String paramString) {
-		this.data = paramString;
+	public String getmTitle() {
+		return mTitle;
 	}
 
-	public void setid(String paramString) {
-		this.id = paramString;
+	public void setmTitle(String mTitle) {
+		this.mTitle = mTitle;
+	}
+
+	public String getsType() {
+		return sType;
+	}
+
+	public void setmType(String mType) {
+		this.sType = mType;
+	}
+
+	public String getmUser() {
+		return mUser;
+	}
+
+	public void setmUser(String mUser) {
+		this.mUser = mUser;
 	}
 }

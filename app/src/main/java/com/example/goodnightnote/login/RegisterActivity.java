@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.goodnightnote.R;
-import com.example.goodnightnote.activity.MainActivity;
 import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.UserTableUtil;
 
@@ -40,16 +39,14 @@ public class RegisterActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserTableUtil userTableUtil = new UserTableUtil();
-                String username = mUsername.getText().toString();
-                String password = mPassword.getText().toString();
-                String pwd = mPwd.getText().toString();
-                SQLiteDatabase localDatabase =
-                        new SqliteHelper(RegisterActivity.this,
+             UserTableUtil userTableUtil = new UserTableUtil();
+             String username = mUsername.getText().toString();
+             String password = mPassword.getText().toString();
+             String pwd = mPwd.getText().toString();
+             SQLiteDatabase localDatabase = new SqliteHelper(RegisterActivity.this,
                                 null, null, 0)
                                 .getWritableDatabase();
-                Cursor cursor =
-                        userTableUtil.query(localDatabase, username);
+             Cursor cursor = userTableUtil.query(localDatabase, username);
                 if (username.equals("") || password.equals("") || pwd.equals("")) {
                     sShowText = (String) RegisterActivity.this.getResources()
                             .getText(R.string.please_input);
@@ -67,7 +64,6 @@ public class RegisterActivity extends AppCompatActivity {
                     } else {
 
                         if (password.matches(REGEX)) {
-
                             if (password.equals(pwd)) {
                                 userTableUtil.add(localDatabase, username, password);
                                 sShowText = (String) RegisterActivity.this.getResources()

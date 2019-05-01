@@ -37,6 +37,18 @@
         android:background="@drawable/smallbutton2"
         android:focusable="false" />
 
+    <ImageView
+        android:id="@+id/ic_alarm"
+        android:layout_width="@dimen/width27"
+        android:layout_height="@dimen/width27"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="@dimen/margin204"
+        android:layout_marginTop="@dimen/top13"
+        android:layout_marginEnd="@dimen/left75"
+        android:layout_toEndOf="@+id/smallbutton1"
+        android:src="@drawable/ic_alarm" />
+
     <Button
         android:id="@+id/smallbutton1"
         android:layout_width="@dimen/width27"

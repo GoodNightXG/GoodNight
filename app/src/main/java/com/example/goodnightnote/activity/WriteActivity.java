@@ -20,49 +20,53 @@ import com.example.goodnightnote.domian.Note;
 import com.example.goodnightnote.view.DrawLine;
 
 public class WriteActivity extends BaseActivity {
-	private Button cancelButton;
-	private Context context = this;
-	private String date;
-	private EditText editText;
-	private Date getDate;
-	private Button sureButton;
-	private TextView textView;
+	private Button mCancelButton;
+	private Context mContext;
+	private String mDate;
+	private EditText mEditText;
+	private Date mGetDate;
+	private Button mSureButton;
+	private TextView mTextView;
+	private String mUsername;
 	private static String sShowText;
 
 	protected void onCreate(Bundle paramBundle)
 	{
 		super.onCreate(paramBundle);
 		setContentView(R.layout.writedown);
-		this.textView = ((TextView)findViewById(R.id.writedate));
-		this.editText = ((DrawLine)findViewById(R.id.edittext));
-		this.cancelButton = ((Button)findViewById(R.id.button));
-		this.sureButton = ((Button)findViewById(R.id.button2));
-		this.getDate = new Date();
-		this.date = this.getDate.getDate();
-		this.textView.setText(this.date);
-		this.sureButton.setOnClickListener(new View.OnClickListener() {
+		this.mContext = this;
+		this.mUsername = getIntent().getStringExtra("username");
+		this.mTextView = ((TextView)findViewById(R.id.writedate));
+		this.mEditText = ((DrawLine)findViewById(R.id.edittext));
+		this.mCancelButton = ((Button)findViewById(R.id.button));
+		this.mSureButton = ((Button)findViewById(R.id.button2));
+		this.mGetDate = new Date();
+		this.mDate = this.mGetDate.getDate();
+		this.mTextView.setText(this.mDate);
+		this.mSureButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				SQLiteDatabase localSqLiteDatabase = new SqliteHelper(WriteActivity.this.context, null,
+				SQLiteDatabase localSqLiteDatabase = new SqliteHelper(WriteActivity.this.mContext, null,
 						null, 0).getWritableDatabase();
 				Note localNote = new Note();
 				SqliteUtil localSqliteUtil = new SqliteUtil();
-				String strContent = WriteActivity.this.editText.getText().toString();
+				String strContent = WriteActivity.this.mEditText.getText().toString();
 				if (strContent.equals("")) {
 					sShowText =  (String) WriteActivity.this.getResources().getText(R.string.empty_content);
-					Toast.makeText(WriteActivity.this.context,sShowText, Toast.LENGTH_SHORT).show();
+					Toast.makeText(WriteActivity.this.mContext,sShowText, Toast.LENGTH_SHORT).show();
 					return;
 				}
 				String strTitle=strContent.length()>11?" "+strContent.substring(0, 11):strContent;
-				localNote.setContent(strContent);
-				localNote.setTitle(strTitle);
-				localNote.setdata(date);
+				localNote.setmContent(strContent);
+				localNote.setmTitle(strTitle);
+				localNote.setmData(mDate);
+				localNote.setmUser(mUsername);
 				localSqliteUtil.add(localSqLiteDatabase, localNote);
 				finish();
 			}
 		});
-		this.cancelButton.setOnClickListener(new View.OnClickListener() {
+		this.mCancelButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -71,28 +75,3 @@ public class WriteActivity extends BaseActivity {
 		});
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

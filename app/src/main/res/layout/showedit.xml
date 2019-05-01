@@ -21,7 +21,7 @@
     <com.example.goodnightnote.view.DrawLine
         android:id="@id/edittexttwo"
         android:layout_width="@dimen/with300"
-        android:layout_height="@dimen/height240"
+        android:layout_height="@dimen/height390"
         android:layout_below="@id/editdate"
         android:layout_centerHorizontal="true"
         android:background="@drawable/shape"

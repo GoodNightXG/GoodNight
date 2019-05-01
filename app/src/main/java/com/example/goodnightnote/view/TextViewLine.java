@@ -44,5 +44,4 @@ public class TextViewLine extends TextView {
 			canvas.drawLines(arrayOfFloat, this.ePaint);
 		}
 	}
-
 }

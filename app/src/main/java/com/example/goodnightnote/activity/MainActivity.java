@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.goodnightnote.R;
 import com.example.goodnightnote.adapter.NoteAdapter;
@@ -39,46 +40,41 @@ import com.example.goodnightnote.domian.Note;
 import com.example.goodnightnote.utils.UserTableUtil;
 
 public class MainActivity extends Activity{
-    private final static String EXPANDED = "EXPANDED";
+    private static int sNumber;
+    private static String sShowText;
     private NoteAdapter mAdapter;
     private ArrayList<Map<String, Object>> mItemList;
     private ListView mListView;
-    private static int sNumber;
     private Button mNumberButton;
     private Button mTopButton;
     private Button mLogoutButton;
-    private RelativeLayout mLayout;
-    private static String sShowText;
-
+    private String mUsername;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        this.mUsername = getIntent().getStringExtra("extra_User");
         this.mNumberButton = ((Button) findViewById(R.id.number));
         this.mTopButton = ((Button) findViewById(R.id.topButton));
         this.mListView = ((ListView) findViewById(R.id.listview));
         this.mLogoutButton = (Button) findViewById(R.id.lobutton);
-        this.mLayout = (RelativeLayout) findViewById(R.id.mainId);
-        // this.listView.setDivider(getResources().getDrawable(android.R.color.white));
         this.mListView.setDivider(null);
         this.mListView.setOnItemClickListener(new ItemClick());
+        Toast.makeText(MainActivity.this,mUsername,Toast.LENGTH_SHORT).show();
         this.mTopButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,
                         WriteActivity.class);
+                intent.putExtra("username", mUsername);
                 startActivity(intent);
-
             }
         });
 
         this.mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 LoDialog((String)MainActivity.this.getResources().getText(R.string.exit_app));
             }
         });
@@ -102,31 +98,31 @@ public class MainActivity extends Activity{
                 null, null,
                 0).getReadableDatabase();
         Iterator<Note> localIterator = new SqliteUtil().query(
-                localSqLiteDatabase).iterator();
-        while (true) {
-            if (!localIterator.hasNext()) {
-                Collections.reverse(this.mItemList );
-                this.mAdapter = new NoteAdapter(this, this.mItemList );
-                this.mListView.setAdapter(this.mAdapter);
-                if (this.mItemList.size()==0) {
-                    sNumber=0;
-                    this.mNumberButton.setText("");
-                }
-                return;
-            }
-            Note localNote = (Note) localIterator.next();
-            HashMap<String, Object> localHashMap = new HashMap<String, Object>();
-            localHashMap.put("titleItem", localNote.getTitle());
-            localHashMap.put("dateItem", localNote.getdata());
-            localHashMap.put("contentItem", localNote.getContent());
-            localHashMap.put("idItem", localNote.getid());
+                localSqLiteDatabase, mUsername).iterator();
+
+        //循环读取数据库中的Note记录
+        while (localIterator.hasNext()) {
+            Note localNote = localIterator.next();
+            HashMap<String, Object> localHashMap = new HashMap<>();
+            localHashMap.put("titleItem", localNote.getmTitle());
+            localHashMap.put("dateItem", localNote.getmData());
+            localHashMap.put("contentItem", localNote.getmContent());
+            localHashMap.put("idItem", localNote.getmId());
+            localHashMap.put("typeItem", localNote.getsType());
             // 默认笔记是摊开还是折叠，true为摊开
             localHashMap.put("EXPANDED", Boolean.valueOf(false));
             this.mItemList.add(localHashMap);
             this.sNumber = this.mItemList.size();
-            this.mNumberButton.setText("(" + this.sNumber + ")");
-        }
-
+            this.mNumberButton.setText(""+this.sNumber);
+             }
+            Collections.reverse(this.mItemList);
+            this.mAdapter = new NoteAdapter(this, this.mItemList);
+            this.mListView.setAdapter(this.mAdapter);
+            if (this.mItemList.size() == 0) {
+                sNumber = 0;
+                this.mNumberButton.setText("");
+            }
+            return;
     }
 
     class ItemClick implements AdapterView.OnItemClickListener {

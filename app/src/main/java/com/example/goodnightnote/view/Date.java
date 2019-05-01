@@ -1,45 +1,44 @@
 package com.example.goodnightnote.view;
 /**
-
  *Time:2019/04/18
  *Author: xiaoxi
  *Description:
-
  */
+import com.example.goodnightnote.R;
 
 import java.util.Calendar;
 
 public class Date {
 	public String getDate() {
 		Calendar localCalendar = Calendar.getInstance();
-		int i = localCalendar.get(1);
-		int j = 1 + localCalendar.get(2);
-		int k = localCalendar.get(5);
+		int instanceYear = localCalendar.get(1);
+		int instanceMonth = localCalendar.get(2) + 1;
+		int instanceDate = localCalendar.get(5);
 		int l = localCalendar.get(11);
-		int i1 = localCalendar.get(12);
-		int i2 = localCalendar.get(10);
-		String am = "上午";
-		String pm = "下午";
-		if ( l >= 13 ) {
-			if (i2 == 0) {
-				i2 = 12;
-			}
-			if (i1 < 10) {
-				return i + "-" + j + "-" + k + "           " + pm + " " + i2
-						+ ":" + "0" + i1;
-			}
-			return i + "-" + j + "-" + k + "           " + pm + " " + i2
-					+ ":" + i1;
-		}
-		if ( i2 == 0 ) {
-			i2 = 12;
-		}
-		if ( i1 < 10 ) {
-			return i + "-" + j + "-" + k + "           " + pm + " " + i2
-					+ ":" + "0" + i1;
-		}
-		return i + "-" + j + "-" + k + "           " + pm + " " + i2 + ":"
-				+ i1;
+		int instanceMinute = localCalendar.get(12);
+		int instanceHour = localCalendar.get(10);
+		String am = "AM";
+		String pm = "PM";
 
+		if ( l >= 13 ) {
+			if (instanceHour == 0) {
+				instanceHour = 12;
+			}
+			if (instanceMinute < 10) {
+				return ""+instanceYear + "-" + instanceMonth + "-" + instanceDate +
+						"    " + instanceHour + ":" + "0" + instanceMinute + pm;
+			}
+			return ""+instanceYear + "-" + instanceMonth + "-" + instanceDate +
+					"    " + instanceHour + ":" + instanceMinute + pm;
+		}
+		if ( instanceHour == 0 ) {
+			instanceHour = 12;
+		}
+		if ( instanceMinute < 10 ) {
+			return instanceYear + "-" + instanceMonth + "-" + instanceDate +
+					"    " + instanceHour + ":" + "0" + instanceMinute + am;
+		}
+		return ""+instanceYear + "-" + instanceMonth + "-" + instanceDate +
+				"    " + instanceHour + ":" + instanceMinute + am;
 	}
 }

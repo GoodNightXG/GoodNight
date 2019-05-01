@@ -7,24 +7,28 @@ package com.example.goodnightnote.utils;
 
  */
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 
 public class UserTableUtil {
 
-	private static String TABLE = "table_user";
+	private final static String TABLE = "table_user";
 
 	//增加操作
 	public void add(SQLiteDatabase sqLiteDatabase, String username, String password){
-		String sql = "insert into "+TABLE+"(username, password) values ('"+username+"','"+password+"')";
-		sqLiteDatabase.execSQL(sql);
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("username", username);
+		contentValues.put("password", password);
+		sqLiteDatabase.insert(TABLE, null, contentValues);
 		sqLiteDatabase.close();
 	}
 	//查找操作
 	public Cursor query(SQLiteDatabase sqLiteDatabase, String username){
-		String sql = "select password from "+TABLE+" where username = '"+ username+"'";
-		Cursor cursor = sqLiteDatabase.rawQuery(sql, null);
+		Cursor cursor =
+		sqLiteDatabase.query(TABLE, new String[] {"password"},"username='"+username+"'",
+				null, null, null, null);
 		return cursor;
 	}
 	//删除操作

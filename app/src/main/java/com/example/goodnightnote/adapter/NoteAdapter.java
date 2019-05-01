@@ -4,7 +4,6 @@ package com.example.goodnightnote.adapter;
  *Time:2019/04/18
  *Author: xiaoxi
  *Description:
-
  */
 import java.util.ArrayList;
 import java.util.Map;
@@ -35,28 +34,24 @@ import com.example.goodnightnote.view.TextViewLine;
 
 public class NoteAdapter extends BaseAdapter {
 
-	public Context context;
-	public Context activity;
-	public LayoutInflater inflater;
-	public ArrayList<Map<String, Object>> list;
-	private final  String sShowText1 = "确认删除？";
-	private final String sShowText2 = "确定";
-	private final String sShowText3 = "取消";
+	private Context mContext;
+	private LayoutInflater mInflater;
+	private ArrayList<Map<String, Object>> mList;
 	public NoteAdapter(Activity activity, ArrayList<Map<String, Object>> list) {
 
-		this.context = activity;
-		this.list = list;
-		inflater = LayoutInflater.from(context);
+		this.mContext = activity;
+		this.mList = list;
+		mInflater = LayoutInflater.from(mContext);
 	}
 
 	@Override
 	public int getCount() {
-		return list.size();
+		return mList.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		return list.get(arg0);
+		return mList.get(arg0);
 	}
 
 	@Override
@@ -70,16 +65,16 @@ public class NoteAdapter extends BaseAdapter {
 		// 此处在去掉if语句之后，刷新语句重新生效
 		SetShow setShow = new SetShow();
 		// 取出map中的展开标记
-		Map<String, Object> map = list.get(arg0);
+		Map<String, Object> map = mList.get(arg0);
 		boolean boo = (Boolean) map.get("EXPANDED");
 		if (!boo) {
-			arg1 = inflater.inflate(R.layout.showtypes, arg2, false);
+			arg1 = mInflater.inflate(R.layout.showtypes, arg2, false);
 			setShow.contentView = (TextView) arg1
 					.findViewById(R.id.contentTextView);
 			setShow.dateView = (TextView) arg1.findViewById(R.id.dateTextView);
-			String str = (String) list.get(arg0).get("titleItem");
-			String dateStr = (String) list.get(arg0).get("dateItem");
-			setShow.contentView.setText("   " + str);
+			String str = (String) mList.get(arg0).get("titleItem");
+			String dateStr = (String) mList.get(arg0).get("dateItem");
+			setShow.contentView.setText(str);
 			setShow.dateView.setText(dateStr);
 			setShow.showButtonWrite = (Button) arg1
 					.findViewById(R.id.smallbutton1);
@@ -90,13 +85,13 @@ public class NoteAdapter extends BaseAdapter {
 			setShow.showButtonDelete
 					.setOnClickListener(new DeleteButtonListener(arg0));
 		} else {
-			arg1 = inflater.inflate(R.layout.style, arg2, false);
+			arg1 = mInflater.inflate(R.layout.style, arg2, false);
 			setShow.cContentView = (TextViewLine) arg1
 					.findViewById(R.id.changecontentview);
 			setShow.cDateView = (TextView) arg1
 					.findViewById(R.id.changedateview);
-			String str = (String) list.get(arg0).get("contentItem");
-			String dateStr = (String) list.get(arg0).get("dateItem");
+			String str = (String) mList.get(arg0).get("contentItem");
+			String dateStr = (String) mList.get(arg0).get("dateItem");
 			setShow.cContentView.setText("" + str);
 			setShow.cDateView.setText(dateStr);
 			setShow.styleButtonWrite = (Button) arg1
@@ -120,18 +115,15 @@ public class NoteAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View v) {
-
 			Bundle b = new Bundle();
-			b.putString("contentItem",
-					(String) list.get(position).get("contentItem"));
-			b.putString("dateItem", (String) list.get(position).get("dateItem"));
-			b.putString("idItem", (String) list.get(position).get("idItem"));
-			Intent intent = new Intent((MainActivity) context,
+			b.putString("contentItem", (String) mList.get(position).get("contentItem"));
+			b.putString("dateItem", (String) mList.get(position).get("dateItem"));
+			b.putString("idItem", (String) mList.get(position).get("idItem"));
+			Intent intent = new Intent((MainActivity) mContext,
 					EditActivity.class);
 			intent.putExtras(b);
-			((MainActivity) context).startActivity(intent);
+			((MainActivity) mContext).startActivity(intent);
 		}
-
 	}
 
 	class DeleteButtonListener implements OnClickListener {
@@ -139,33 +131,30 @@ public class NoteAdapter extends BaseAdapter {
 
 		public DeleteButtonListener(int position) {
 			this.position = position;
-
 		}
 
 		@Override
 		public void onClick(View v) {
-			Builder builder = new Builder(context);
-			builder.setTitle(sShowText1);
-			builder.setPositiveButton(sShowText2,
+			Builder builder = new Builder(mContext);
+			builder.setTitle(R.string.enter_delete);
+			builder.setPositiveButton(R.string.ok,
 					new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(DialogInterface dialog, int i) {
-							SqliteHelper sql = new SqliteHelper(context, null,
-									null, 0);
-							SQLiteDatabase dataBase = sql.getWritableDatabase();
-							SqliteUtil change = new SqliteUtil();
-							Note note = new Note();
-							note.setid((String) list.get(position).get(
-									"idItem"));
-							change.delete(dataBase, note);
-							// 此处调用activity里的方法需逐渐向上转型
-							((MainActivity) context).showUpdate();
-							// a.showUpdate();
-
+				@Override
+				public void onClick(DialogInterface dialog, int i) {
+					SqliteHelper sql = new SqliteHelper(mContext, null,
+							null, 0);
+					SQLiteDatabase dataBase = sql.getWritableDatabase();
+					SqliteUtil change = new SqliteUtil();
+					Note note = new Note();
+					note.setmId((String) mList.get(position).get(
+							"idItem"));
+					change.delete(dataBase, note);
+					// 此处调用activity里的方法需逐渐向上转型
+					((MainActivity) mContext).showUpdate();
 						}
 					});
-			builder.setNegativeButton(sShowText3,
+			builder.setNegativeButton(R.string.cancel,
 					new DialogInterface.OnClickListener() {
 
 						@Override
@@ -176,7 +165,6 @@ public class NoteAdapter extends BaseAdapter {
 			builder.create();
 			builder.show();
 		}
-
 	}
 
 	class SetShow {

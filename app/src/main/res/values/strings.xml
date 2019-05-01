@@ -7,6 +7,7 @@
     <string name ="empty_content">内容为空</string>
     <string name ="ok">确认</string>
     <string name="cancel">取消</string>
+    <string name="enter_delete">确定删除吗？</string>
     <string name="empty_count">用户名和密码不能为空</string>
     <string name="login_success">登陆成功</string>
     <string name="password_error">用户名或密码错误</string>
@@ -25,8 +26,13 @@
     <string name="confirm_pssword">确认密码：</string>
     <string name="click_register">点击注册</string>
     <string name="welcome">欢迎你，新用户</string>
-    <string name="logout">注销</string>\
+    <string name="logout">注销</string>
     <string name="save">保存</string>
+    <string name="life">生活</string>
+    <string name="work">工作</string>
+    <string name="empty">默认</string>
+    <string name="game">娱乐</string>
+
 
 
 </resources>

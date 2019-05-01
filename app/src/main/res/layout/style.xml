@@ -49,4 +49,14 @@
         android:layout_marginRight="@dimen/right7"
         android:background="@drawable/smallbutton2"
         android:focusable="false" />
+
+    <ImageView
+        android:id="@+id/ic_alarm"
+        android:layout_width="@dimen/width27"
+        android:layout_height="@dimen/width27"
+        android:layout_alignTop="@+id/changedateview"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/top0"
+        android:layout_marginEnd="@dimen/left75"
+        android:src="@drawable/ic_alarm" />
 </RelativeLayout>
