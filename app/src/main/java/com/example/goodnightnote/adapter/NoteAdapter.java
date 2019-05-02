@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.goodnightnote.R;
 import com.example.goodnightnote.activity.EditActivity;
@@ -37,6 +38,15 @@ public class NoteAdapter extends BaseAdapter {
 	private Context mContext;
 	private LayoutInflater mInflater;
 	private ArrayList<Map<String, Object>> mList;
+
+	private TextView mContentView;
+	public TextView mDateView;
+	public TextViewLine mLineContentView;
+	public TextView cDateView;
+	public Button styleButtonWrite;
+	public Button styleButtonDelete;
+	public Button showButtonWrite;
+	public Button showButtonDelete;
 	public NoteAdapter(Activity activity, ArrayList<Map<String, Object>> list) {
 
 		this.mContext = activity;
@@ -62,45 +72,44 @@ public class NoteAdapter extends BaseAdapter {
 	//回显数据
 	@Override
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
-		// 此处在去掉if语句之后，刷新语句重新生效
-		SetShow setShow = new SetShow();
 		// 取出map中的展开标记
 		Map<String, Object> map = mList.get(arg0);
 		boolean boo = (Boolean) map.get("EXPANDED");
 		if (!boo) {
 			arg1 = mInflater.inflate(R.layout.showtypes, arg2, false);
-			setShow.contentView = (TextView) arg1
-					.findViewById(R.id.contentTextView);
-			setShow.dateView = (TextView) arg1.findViewById(R.id.dateTextView);
+			mContentView =  arg1.findViewById(R.id.contentTextView);
+			mDateView = (TextView) arg1.findViewById(R.id.dateTextView);
 			String str = (String) mList.get(arg0).get("titleItem");
 			String dateStr = (String) mList.get(arg0).get("dateItem");
-			setShow.contentView.setText(str);
-			setShow.dateView.setText(dateStr);
-			setShow.showButtonWrite = (Button) arg1
+			String label = (String) mList.get(arg0).get("typeItem");
+			mContentView.setText(str);
+			setBack(mContentView, label);
+			mDateView.setText(dateStr);
+			showButtonWrite = (Button) arg1
 					.findViewById(R.id.smallbutton1);
-			setShow.showButtonDelete = (Button) arg1
+			showButtonDelete = (Button) arg1
 					.findViewById(R.id.smallbutton2);
-			setShow.showButtonWrite.setOnClickListener(new WriteButtonListener(
-					arg0));
-			setShow.showButtonDelete
-					.setOnClickListener(new DeleteButtonListener(arg0));
+			showButtonWrite.setOnClickListener(new WriteButtonListener(arg0));
+			showButtonDelete.setOnClickListener(new DeleteButtonListener(arg0));
 		} else {
 			arg1 = mInflater.inflate(R.layout.style, arg2, false);
-			setShow.cContentView = (TextViewLine) arg1
+			mLineContentView = (TextViewLine) arg1
 					.findViewById(R.id.changecontentview);
-			setShow.cDateView = (TextView) arg1
+			cDateView = (TextView) arg1
 					.findViewById(R.id.changedateview);
 			String str = (String) mList.get(arg0).get("contentItem");
 			String dateStr = (String) mList.get(arg0).get("dateItem");
-			setShow.cContentView.setText("" + str);
-			setShow.cDateView.setText(dateStr);
-			setShow.styleButtonWrite = (Button) arg1
+			String label = (String) mList.get(arg0).get("typeItem");
+			mLineContentView.setText(str);
+			setBack(mLineContentView, label);
+			cDateView.setText(dateStr);
+			styleButtonWrite = (Button) arg1
 					.findViewById(R.id.stylebutton1);
-			setShow.styleButtonWrite
+			styleButtonWrite
 					.setOnClickListener(new WriteButtonListener(arg0));
-			setShow.styleButtonDelete = (Button) arg1
+			styleButtonDelete = (Button) arg1
 					.findViewById(R.id.stylebutton2);
-			setShow.styleButtonDelete
+			styleButtonDelete
 					.setOnClickListener(new DeleteButtonListener(arg0));
 		}
 		return arg1;
@@ -119,6 +128,7 @@ public class NoteAdapter extends BaseAdapter {
 			b.putString("contentItem", (String) mList.get(position).get("contentItem"));
 			b.putString("dateItem", (String) mList.get(position).get("dateItem"));
 			b.putString("idItem", (String) mList.get(position).get("idItem"));
+			b.putString("typeItem",(String) mList.get(position).get("typeItem"));
 			Intent intent = new Intent((MainActivity) mContext,
 					EditActivity.class);
 			intent.putExtras(b);
@@ -166,16 +176,27 @@ public class NoteAdapter extends BaseAdapter {
 			builder.show();
 		}
 	}
-
-	class SetShow {
-		public TextView contentView;
-		public TextView dateView;
-		public TextViewLine cContentView;
-		public TextView cDateView;
-		public Button styleButtonWrite;
-		public Button styleButtonDelete;
-		public Button showButtonWrite;
-		public Button showButtonDelete;
+	private void setBack(TextView content, String label){
+		if(label == null){
+			content.setBackgroundResource(R.color.fcolor);
+		}else {
+			switch (label) {
+				case "0":
+					content.setBackgroundResource(R.color.fcolor);
+					break;
+				case "1":
+					content.setBackgroundResource(R.color.red);
+					break;
+				case "2":
+					content.setBackgroundResource(R.color.blue);
+					break;
+				case "3":
+					content.setBackgroundResource(R.color.green);
+					break;
+				default:
+					break;
+			}
+		}
 	}
 
 }

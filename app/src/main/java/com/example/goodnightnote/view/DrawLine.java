@@ -17,16 +17,16 @@ import android.widget.EditText;
 
 @SuppressLint("AppCompatCustomView")
 public class DrawLine extends EditText {
-	private Paint ePaint;
+	private Paint mPaint;
 
 	// private Rect rect;
 	public DrawLine(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		ePaint = new Paint();
+		mPaint = new Paint();
 
 		// rect=new Rect();
-		ePaint.setColor(Color.BLACK);
-		ePaint.setStyle(Paint.Style.STROKE);
+		mPaint.setColor(Color.BLACK);
+		mPaint.setStyle(Paint.Style.STROKE);
 
 	}
 
@@ -39,7 +39,7 @@ public class DrawLine extends EditText {
 
 			// i*50-280,50增加则行间距大285增加则线靠上。
 			// canvas.drawLine(15, i*42, this.getWidth()-20,i*42, ePaint);
-			canvas.drawLines(pts, ePaint);
+			canvas.drawLines(pts, mPaint);
 		}
 		super.onDraw(canvas);
 	}

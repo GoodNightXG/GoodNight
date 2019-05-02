@@ -2,7 +2,7 @@ package com.example.goodnightnote.activity;
 /**
 
  *Time:2019/04/18
- *Author: xiaoxi  wangsheng
+ *Author: xiaoxi  wangsheng  zuosc
  *Description:
  */
 import java.util.ArrayList;
@@ -12,28 +12,22 @@ import java.util.Iterator;
 import java.util.Map;
 
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.goodnightnote.R;
 import com.example.goodnightnote.adapter.NoteAdapter;
 import com.example.goodnightnote.login.LoginActivity;
-import com.example.goodnightnote.login.RegisterActivity;
 import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.SqliteUtil;
 import com.example.goodnightnote.domian.Note;
@@ -49,18 +43,35 @@ public class MainActivity extends Activity{
     private Button mTopButton;
     private Button mLogoutButton;
     private String mUsername;
+    private Spinner mSpinner;
+    private Iterator<Note> mLocalIterator;
+    private long mSelectedType = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         this.mUsername = getIntent().getStringExtra("extra_User");
-        this.mNumberButton = ((Button) findViewById(R.id.number));
-        this.mTopButton = ((Button) findViewById(R.id.topButton));
-        this.mListView = ((ListView) findViewById(R.id.listview));
-        this.mLogoutButton = (Button) findViewById(R.id.lobutton);
+        this.mNumberButton = findViewById(R.id.number);
+        this.mTopButton = findViewById(R.id.topButton);
+        this.mListView = findViewById(R.id.listview);
+        this.mLogoutButton = findViewById(R.id.lobutton);
+        this.mSpinner = findViewById(R.id.spinner);
         this.mListView.setDivider(null);
         this.mListView.setOnItemClickListener(new ItemClick());
-        Toast.makeText(MainActivity.this,mUsername,Toast.LENGTH_SHORT).show();
+        //分类查看
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               mSelectedType = id - 1;
+                showUpdate();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //新建按钮
         this.mTopButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -71,11 +82,11 @@ public class MainActivity extends Activity{
                 startActivity(intent);
             }
         });
-
+        //注销按钮
         this.mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoDialog((String)MainActivity.this.getResources().getText(R.string.exit_app));
+                loDialog((String)MainActivity.this.getResources().getText(R.string.exit_app));
             }
         });
     }
@@ -91,24 +102,31 @@ public class MainActivity extends Activity{
         super.onResume();
         showUpdate();
     }
-
+    //刷新页面
     public void showUpdate() {
-        this.mItemList = new ArrayList<Map<String, Object>>();
+        this.mItemList = new ArrayList<>();
         SQLiteDatabase localSqLiteDatabase = new SqliteHelper(this,
                 null, null,
                 0).getReadableDatabase();
-        Iterator<Note> localIterator = new SqliteUtil().query(
-                localSqLiteDatabase, mUsername).iterator();
-
+        if(mSelectedType == -1){
+            this.mLocalIterator = new SqliteUtil().query(
+                    localSqLiteDatabase, mUsername).iterator();
+        }else if(mSelectedType == 0){
+            this.mLocalIterator = new SqliteUtil()
+                    .queryEmpty(localSqLiteDatabase, mUsername,mSelectedType).iterator();
+        } else{
+            this.mLocalIterator = new SqliteUtil()
+                    .query(localSqLiteDatabase, mUsername, mSelectedType).iterator();
+        }
         //循环读取数据库中的Note记录
-        while (localIterator.hasNext()) {
-            Note localNote = localIterator.next();
+        while (mLocalIterator.hasNext()) {
+            Note localNote = mLocalIterator.next();
             HashMap<String, Object> localHashMap = new HashMap<>();
             localHashMap.put("titleItem", localNote.getmTitle());
             localHashMap.put("dateItem", localNote.getmData());
             localHashMap.put("contentItem", localNote.getmContent());
             localHashMap.put("idItem", localNote.getmId());
-            localHashMap.put("typeItem", localNote.getsType());
+            localHashMap.put("typeItem", localNote.getmType());
             // 默认笔记是摊开还是折叠，true为摊开
             localHashMap.put("EXPANDED", Boolean.valueOf(false));
             this.mItemList.add(localHashMap);
@@ -141,9 +159,8 @@ public class MainActivity extends Activity{
         }
     }
         //注销对话框
-        public void LoDialog(String message) {
+        public void loDialog(String message) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-            dialog.setTitle(" ");
             dialog.setMessage(message);
             dialog.setCancelable(false);
             sShowText = (String)MainActivity.this.getResources().getText(R.string.ok);
@@ -165,7 +182,6 @@ public class MainActivity extends Activity{
             dialog.setNegativeButton(sShowText, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-
                 }
             });
             dialog.show();

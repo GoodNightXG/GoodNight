@@ -18,6 +18,20 @@
         android:gravity="center"
         android:textColor="@color/focolor" />
 
+    <Button
+        android:id="@+id/bt_label"
+        android:layout_width="@dimen/width27"
+        android:layout_height="@dimen/width27"
+        android:layout_above="@id/contentTextView"
+        android:layout_alignLeft="@id/contentTextView"
+        android:layout_alignTop="@+id/writedate"
+        android:layout_alignEnd="@+id/writedate"
+        android:layout_marginLeft="@dimen/right7"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="270dp"
+        android:background="@drawable/ic_label"
+        android:focusable="false" />
+
     <com.example.goodnightnote.view.DrawLine
         android:id="@+id/edittext"
         android:layout_width="@dimen/with300"
@@ -32,28 +46,29 @@
         android:textSize="@dimen/textsize18" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/bt_cancel"
         android:layout_width="@dimen/left130"
         android:layout_height="@dimen/width40"
         android:layout_alignEnd="@+id/edittext"
         android:layout_alignRight="@+id/edittext"
         android:layout_below="@+id/edittext"
         android:layout_marginTop="@dimen/top30"
-        android:background="@drawable/button"
         android:text="@string/cancel"
         android:textColor="@color/fcolor" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/bt_save"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="@dimen/left130"
         android:layout_height="@dimen/width40"
         android:layout_alignStart="@+id/edittext"
         android:layout_alignLeft="@+id/edittext"
         android:layout_alignRight="@+id/edittext"
-        android:layout_alignBottom="@+id/button"
-        android:layout_marginRight="@dimen/right170"
+        android:layout_alignBottom="@+id/bt_cancel"
         android:layout_marginTop="@dimen/top30"
-        android:background="@drawable/button"
+        android:layout_marginRight="@dimen/right170"
         android:text="@string/save"
         android:textColor="@color/fcolor" />
+
+
 </RelativeLayout>

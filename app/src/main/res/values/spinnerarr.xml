@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spinarr">
+        <item>全部</item>
+        <item>无标签</item>
+        <item>生活</item>
+        <item>工作</item>
+        <item>娱乐</item>
+    </string-array>
+</resources>

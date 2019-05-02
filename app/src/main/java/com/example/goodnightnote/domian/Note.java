@@ -15,7 +15,7 @@ public class Note {
 	private String mData;
 	private String mId;
 	private String mTitle;
-	private static String sType = R.string.empty+"";
+	private String mType;
 	private String mUser;
 
 	public String getmContent() {
@@ -50,12 +50,12 @@ public class Note {
 		this.mTitle = mTitle;
 	}
 
-	public String getsType() {
-		return sType;
+	public String getmType() {
+		return mType;
 	}
 
 	public void setmType(String mType) {
-		this.sType = mType;
+		this.mType = mType;
 	}
 
 	public String getmUser() {

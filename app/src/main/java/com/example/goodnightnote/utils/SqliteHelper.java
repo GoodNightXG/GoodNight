@@ -15,7 +15,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SqliteHelper extends SQLiteOpenHelper {
 
-	  private final static String DATABASE_NAME = "mydatabase.db";
+	  private final static String DATABASE_NAME = "luckydatabase.db";
 	  private final static String NAME = "table_notepad";
 	  private final static String USER_TABLE  = "table_user";
 	  private final static int VERSION = 1;
@@ -24,7 +24,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	  public static final String CREATE_USER = "create table "+USER_TABLE
 			+" (username TEXT,password TEXT)";
       public static final String CREARE_NOTE = "create table "+NAME
-	        +" (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,date TEXT,content TEXT,type TEXT,user TEXT)";
+	        +" (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,date TEXT,"
+			  +"content TEXT,type TEXT,user TEXT)";
 
 
 	  //构造函数
