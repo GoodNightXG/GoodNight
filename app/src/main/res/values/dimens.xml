@@ -15,6 +15,7 @@
     <dimen name="top25">25dp</dimen>
     <dimen name="top20">20dp</dimen>
     <dimen name="left150">150dp</dimen>
+    <dimen name="left117">117dp</dimen>
     <dimen name="left235">235dp</dimen>
     <dimen name="imageview">100dp</dimen>
     <dimen name="left130">130dp</dimen>
@@ -32,6 +33,7 @@
     <dimen name="width40">40dp</dimen>
     <dimen name="right17">17dp</dimen>
     <dimen name="Bottom5">5dp</dimen>
+    <dimen name="buttom147">147dp</dimen>
     <dimen name="with300">300dp</dimen>
     <dimen name="height240">240dp</dimen>
     <dimen name="height68">68dp</dimen>
@@ -41,5 +43,11 @@
     <dimen name="line3">3dp</dimen>
     <dimen name="right170">170dp</dimen>
     <dimen name="height480">480dp</dimen>
+    <dimen name="width293">293dp</dimen>
+    <dimen name="end270">270dp</dimen>
+    <dimen name="height187">187dp</dimen>
+    <dimen name="height111">111dp</dimen>
+    <dimen name="height167">167dp</dimen>
+
 
 </resources>

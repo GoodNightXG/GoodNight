@@ -3,9 +3,9 @@
     <string name="top_text">晚   安   笔   记</string>>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name ="exit_app">是否注销当前账号并退出？</string>
-    <string name ="empty_content">内容为空</string>
-    <string name ="ok">确认</string>
+    <string name="exit_app">是否注销当前账号并退出？</string>
+    <string name="empty_content">内容为空</string>
+    <string name="ok">确认</string>
     <string name="cancel">取消</string>
     <string name="enter_delete">确定删除吗？</string>
     <string name="empty_count">用户名和密码不能为空</string>
@@ -33,7 +33,9 @@
     <string name="empty">默认</string>
     <string name="game">娱乐</string>
     <string name="label">请选择分类：</string>
-
+    <string name="remind">您有一个待办事项，请及时处理欧！</string>
+    <string name="shutoff">关闭提醒</string>
+    <string name="importantnotification">重要通知</string>
 
 
 </resources>

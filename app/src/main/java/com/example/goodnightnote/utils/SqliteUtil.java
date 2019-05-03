@@ -44,24 +44,7 @@ public class SqliteUtil {
 						"id", "title", "content", "date","type"},
 				"user='"+username+"'",null, null,null,
 				null);
-		while (true) {
-			if (!localCursor.moveToNext()) {
-				paramSQLiteDatabase.close();
-				return localArrayList;
-			}
-			Note localNote = new Note();
-			localNote.setmId(localCursor.getString(localCursor
-					.getColumnIndex("id")));
-			localNote.setmTitle(localCursor.getString(localCursor
-					.getColumnIndex("title")));
-			localNote.setmContent(localCursor.getString(localCursor
-					.getColumnIndex("content")));
-			localNote.setmData(localCursor.getString(localCursor
-					.getColumnIndex("date")));
-			localNote.setmType(localCursor.getString(localCursor
-					.getColumnIndex("type")));
-			localArrayList.add(localNote);
-		}
+		return queryUtil(localCursor, localArrayList);
 	}
 	public ArrayList<Note> query(SQLiteDatabase paramSQLiteDatabase, String username ,Long selectedType) {
 		ArrayList<Note> localArrayList = new ArrayList<Note>();
@@ -70,24 +53,7 @@ public class SqliteUtil {
 				"user='"+username+"' and type = '"+selectedType+"'",
 				null, null,null,
 				null);
-		while (true) {
-			if (!localCursor.moveToNext()) {
-				paramSQLiteDatabase.close();
-				return localArrayList;
-			}
-			Note localNote = new Note();
-			localNote.setmId(localCursor.getString(localCursor
-					.getColumnIndex("id")));
-			localNote.setmTitle(localCursor.getString(localCursor
-					.getColumnIndex("title")));
-			localNote.setmContent(localCursor.getString(localCursor
-					.getColumnIndex("content")));
-			localNote.setmData(localCursor.getString(localCursor
-					.getColumnIndex("date")));
-			localNote.setmType(localCursor.getString(localCursor
-					.getColumnIndex("type")));
-			localArrayList.add(localNote);
-		}
+		return queryUtil(localCursor, localArrayList);
 	}
 	public ArrayList<Note> queryEmpty(SQLiteDatabase paramSQLiteDatabase, String username ,Long selectedType) {
 		ArrayList<Note> localArrayList = new ArrayList<Note>();
@@ -96,26 +62,28 @@ public class SqliteUtil {
 				"user='"+username+"' and type = '"+selectedType+"' or type is null",
 				null, null,null,
 				null);
-		while (true) {
-			if (!localCursor.moveToNext()) {
-				paramSQLiteDatabase.close();
-				return localArrayList;
-			}
-			Note localNote = new Note();
-			localNote.setmId(localCursor.getString(localCursor
-					.getColumnIndex("id")));
-			localNote.setmTitle(localCursor.getString(localCursor
-					.getColumnIndex("title")));
-			localNote.setmContent(localCursor.getString(localCursor
-					.getColumnIndex("content")));
-			localNote.setmData(localCursor.getString(localCursor
-					.getColumnIndex("date")));
-			localNote.setmType(localCursor.getString(localCursor
-					.getColumnIndex("type")));
-			localArrayList.add(localNote);
-		}
+		return queryUtil(localCursor, localArrayList);
 	}
 
+	public ArrayList<Note> queryUtil(Cursor localCursor, ArrayList<Note> localArrayList){
+        while (true) {
+            if (!localCursor.moveToNext()) {
+                return localArrayList;
+            }
+            Note localNote = new Note();
+            localNote.setmId(localCursor.getString(localCursor
+                    .getColumnIndex("id")));
+            localNote.setmTitle(localCursor.getString(localCursor
+                    .getColumnIndex("title")));
+            localNote.setmContent(localCursor.getString(localCursor
+                    .getColumnIndex("content")));
+            localNote.setmData(localCursor.getString(localCursor
+                    .getColumnIndex("date")));
+            localNote.setmType(localCursor.getString(localCursor
+                    .getColumnIndex("type")));
+            localArrayList.add(localNote);
+        }
+    }
 	//修改操作
 	public void update(SQLiteDatabase paramSQLiteDatabase, Note paramNote) {
 		ContentValues localContentValues = new ContentValues();

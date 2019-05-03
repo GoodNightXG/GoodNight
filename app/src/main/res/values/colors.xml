@@ -7,7 +7,7 @@
     <color name="ocolor">#00000000</color>
     <color name="focolor">#ffff0000</color>
     <color name="ffcolor">#ff000000</color>
-    <color name="red">#ffff3333</color>
-    <color name="green">#ff33ff00</color>
-    <color name="blue">#ff00CCCC</color>
+    <color name="red">#96e21f1f</color>
+    <color name="green">#9654d22e</color>
+    <color name="blue">#9626d7d7</color>
 </resources>

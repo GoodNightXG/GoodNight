@@ -27,8 +27,8 @@
         android:layout_alignTop="@+id/writedate"
         android:layout_alignEnd="@+id/writedate"
         android:layout_marginLeft="@dimen/right7"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="270dp"
+        android:layout_marginTop="@dimen/line3"
+        android:layout_marginEnd="@dimen/end270"
         android:background="@drawable/ic_label"
         android:focusable="false" />
 

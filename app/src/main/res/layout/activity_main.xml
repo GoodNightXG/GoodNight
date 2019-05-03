@@ -51,12 +51,12 @@
 
     <Spinner
         android:id="@+id/spinner"
-        android:layout_width="293dp"
-        android:layout_height="30dp"
+        android:layout_width="@dimen/width293"
+        android:layout_height="@dimen/top30"
         android:layout_below="@+id/topButton"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="1dp"
+        android:layout_marginStart="@dimen/width40"
+        android:layout_marginTop="@dimen/top0"
         android:entries="@array/spinarr" />
 
 </RelativeLayout>

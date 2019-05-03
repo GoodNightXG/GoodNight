@@ -18,6 +18,17 @@
         android:gravity="center"
         android:textColor="@color/focolor" />
 
+    <Button
+        android:id="@+id/bt_alarm"
+        android:layout_width="@dimen/width27"
+        android:layout_height="@dimen/width27"
+        android:layout_above="@id/changecontentview"
+        android:layout_alignLeft="@id/changecontentview"
+        android:layout_marginLeft="@dimen/height240"
+        android:layout_marginBottom="@dimen/top0"
+        android:background="@drawable/ic_add_alarm"
+        android:focusable="false" />
+
     <com.example.goodnightnote.view.TextViewLine
         android:id="@+id/changecontentview"
         android:layout_width="@dimen/with300"
@@ -50,13 +61,4 @@
         android:background="@drawable/smallbutton2"
         android:focusable="false" />
 
-    <ImageView
-        android:id="@+id/ic_alarm"
-        android:layout_width="@dimen/width27"
-        android:layout_height="@dimen/width27"
-        android:layout_alignTop="@+id/changedateview"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="@dimen/top0"
-        android:layout_marginEnd="@dimen/left75"
-        android:src="@drawable/ic_alarm" />
 </RelativeLayout>

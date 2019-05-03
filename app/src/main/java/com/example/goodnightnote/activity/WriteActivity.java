@@ -6,11 +6,16 @@ package com.example.goodnightnote.activity;
  *Description:增加新的笔记的业务逻辑
  */
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -24,6 +29,8 @@ import com.example.goodnightnote.utils.SqliteUtil;
 import com.example.goodnightnote.domian.Note;
 import com.example.goodnightnote.view.DrawLine;
 
+import java.util.Calendar;
+
 public class WriteActivity extends Activity {
 	private Button mCancelButton;
 	private Button mLabelButton;
@@ -35,7 +42,7 @@ public class WriteActivity extends Activity {
 	private TextView mTextView;
 	private String mUsername;
 	private String mLabel;
-	private static String sShowText;
+	private String mShowText;
 	private Note mLocalNote;
 
 	protected void onCreate(Bundle paramBundle) {
@@ -48,11 +55,12 @@ public class WriteActivity extends Activity {
 		this.mEditText = (DrawLine)findViewById(R.id.edittext);
 		this.mCancelButton = findViewById(R.id.bt_cancel);
 		this.mSureButton = findViewById(R.id.bt_save);
-
 		this.mGetDate = new Date();
 		this.mDateNow = this.mGetDate.getDate();
 		this.mTextView.setText(this.mDateNow);
 		this.mLabelButton = findViewById(R.id.bt_label);
+
+		//设置标签按钮
 		this.mLabelButton.setOnClickListener(new View.OnClickListener() {
 			String life = (String) getResources().getText(R.string.life);
 			String work = (String) getResources().getText(R.string.work);
@@ -84,8 +92,8 @@ public class WriteActivity extends Activity {
 				SqliteUtil localSqliteUtil = new SqliteUtil();
 				String strContent = WriteActivity.this.mEditText.getText().toString();
 				if (strContent.equals("")) {
-					sShowText =  (String) WriteActivity.this.getResources().getText(R.string.empty_content);
-					Toast.makeText(WriteActivity.this.mContext,sShowText, Toast.LENGTH_SHORT).show();
+					mShowText =  (String) WriteActivity.this.getResources().getText(R.string.empty_content);
+					Toast.makeText(WriteActivity.this.mContext,mShowText, Toast.LENGTH_SHORT).show();
 					return;
 				}
 				String strTitle=strContent.length()>11?" "+strContent.substring(0, 11):strContent;
