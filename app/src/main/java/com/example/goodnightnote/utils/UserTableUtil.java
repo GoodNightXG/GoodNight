@@ -8,6 +8,7 @@ package com.example.goodnightnote.utils;
  */
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -15,25 +16,34 @@ import android.database.sqlite.SQLiteDatabase;
 public class UserTableUtil {
 
 	private final static String TABLE = "table_user";
+	private final static String USERNAME = "username";
+	private final static String PASSWORD = "password";
+	private SQLiteDatabase sqLiteDatabase;
 
 	//增加操作
-	public void add(SQLiteDatabase sqLiteDatabase, String username, String password){
+	public void add(Context context, String username, String password){
+		sqLiteDatabase = new SqliteHelper(context,null, null,0 )
+				.getWritableDatabase();
 		ContentValues contentValues = new ContentValues();
-		contentValues.put("username", username);
-		contentValues.put("password", password);
+		contentValues.put(USERNAME, username);
+		contentValues.put(PASSWORD, password);
 		sqLiteDatabase.insert(TABLE, null, contentValues);
 		sqLiteDatabase.close();
 	}
 	//查找操作
-	public Cursor query(SQLiteDatabase sqLiteDatabase, String username){
+	public Cursor query(Context context, String username){
+		sqLiteDatabase = new SqliteHelper(context,null, null,0 )
+				.getWritableDatabase();
 		Cursor cursor =
-		sqLiteDatabase.query(TABLE, new String[] {"password"},"username='"+username+"'",
+		sqLiteDatabase.query(TABLE, new String[] {PASSWORD},USERNAME + "='"+username+"'",
 				null, null, null, null);
 		return cursor;
 	}
 	//删除操作
-	public void delete(SQLiteDatabase sqLiteDatabase, String username) {
-		sqLiteDatabase.execSQL("delete from table_user where username is ?" , new String[]{username});
+	public void delete(Context context, String username) {
+		sqLiteDatabase = new SqliteHelper(context,null, null,0 )
+				.getWritableDatabase();
+		sqLiteDatabase.delete(TABLE, USERNAME + " = '" + username+"'", null);
 		sqLiteDatabase.close();
 
 	}

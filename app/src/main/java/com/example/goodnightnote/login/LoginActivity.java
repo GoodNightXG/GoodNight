@@ -8,7 +8,6 @@ package com.example.goodnightnote.login;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,8 +18,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.goodnightnote.R;
-import com.example.goodnightnote.activity.MainActivity;
-import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.UserTableUtil;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,25 +28,36 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private CheckBox mCheckBox;
     private SharedPreferences mSharedPreference;
     private SharedPreferences.Editor mEditor;
-    private static String sShowText;
+    private String mShowText;
+    private final static String REMEMBER = "remember";
+    private final static String USERNAME = "Username";
+    private final static String PASSWORD = "Password";
+    private final static String PASSWORDS = "password";
+    private final static String EXIT = "exit";
+    private final static String EXTRA_USER = "extra_User";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mSharedPreference = PreferenceManager.getDefaultSharedPreferences(this);
-        mLoginButton = (Button) findViewById(R.id.bt_login);
-        mRegisterButton = (Button) findViewById(R.id.bt_register);
-        mUsernameEdit = (EditText) findViewById(R.id.et_username);
-        mEditPassword = (EditText) findViewById(R.id.et_password);
-        mCheckBox = (CheckBox) findViewById(R.id.cb_rememberpwd);
+        mLoginButton = findViewById(R.id.bt_login);
+        mRegisterButton = findViewById(R.id.bt_register);
+        mUsernameEdit = findViewById(R.id.et_username);
+        mEditPassword = findViewById(R.id.et_password);
+        mCheckBox = findViewById(R.id.cb_rememberpwd);
         mLoginButton.setOnClickListener(this);
         mRegisterButton.setOnClickListener(this);
         //记住密码默认为false
-        Boolean remember = mSharedPreference.getBoolean("remember", false);
+        Boolean remember = mSharedPreference.getBoolean(REMEMBER, true);
         if(remember){
-            mUsernameEdit.setText(mSharedPreference.getString("Username",""));
-            mEditPassword.setText(mSharedPreference.getString("Password",""));
+            String username = mSharedPreference.getString(USERNAME,"");
+            String password = mSharedPreference.getString(PASSWORD, "");
+            mCheckBox.setChecked(true);
+            check(username , password);
+            mUsernameEdit.setText(username);
+            mEditPassword.setText(password);
         }
     }
 
@@ -58,11 +66,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onNewIntent(intent);
         if (intent != null) {
             // 是否退出App的标识
-            boolean isExitApp = intent.getBooleanExtra("exit", false);
+            boolean isExitApp = intent.getBooleanExtra(EXIT, false);
             if (isExitApp) {
                 // 关闭自身
                 this.finish();
+            } else {
+
             }
+        } else {
+
         }
     }
 
@@ -71,7 +83,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()){
             case R.id.bt_login:
                 //验证用户名密码
-                check();
+                String username = mUsernameEdit.getText().toString().trim();
+                String password = mEditPassword.getText().toString().trim();
+                check(username, password);
                 break;
             case R.id.bt_register:
                 Intent intent = new Intent();
@@ -83,39 +97,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
     //验证用户名密码
-    private void check(){
+    private void check(String username, String password){
         UserTableUtil userTableUtil = new UserTableUtil();
-        SQLiteDatabase localDatabase =
-                new SqliteHelper(LoginActivity.this,
-                        null, null,0 )
-                        .getWritableDatabase();
-        String username = mUsernameEdit.getText().toString().trim();
-        String password = mEditPassword.getText().toString().trim();
+
         //判断非空
         if (username .equals("")  || password .equals("")){
-            sShowText = (String)LoginActivity.this.getResources().getText(R.string.empty_count);
-            Toast.makeText(LoginActivity.this, sShowText,
-                    Toast.LENGTH_SHORT).show();
+            return;
         }else {
-            Cursor cursor = userTableUtil.query(localDatabase, username);
+            Cursor cursor = userTableUtil.query(LoginActivity.this, username);
             //判断用户是否存在
             if (cursor.getCount() != 0) {
                 //若不调用该方法，会产生CursorIndexOutOfBoundsException
                 cursor.moveToFirst();
                 String pwd =
-                        cursor.getString(cursor.getColumnIndex("password"));
+                        cursor.getString(cursor.getColumnIndex(PASSWORDS));
                 //判断密码是否正确
                 if (pwd.equals(password)) {
-                    sShowText = (String)LoginActivity.this.getResources().
+                    mShowText = (String)LoginActivity.this.getResources().
                             getText(R.string.login_success);
-                    Toast.makeText(LoginActivity.this,sShowText,
+                    Toast.makeText(LoginActivity.this,mShowText,
                             Toast.LENGTH_SHORT).show();
                     mEditor = mSharedPreference.edit();
                     //判断是否勾选记住密码
                     if(mCheckBox.isChecked()){
-                        mEditor.putBoolean("remember", true);
-                        mEditor.putString("Username", username);
-                        mEditor.putString("Password", password);
+                        mEditor.putBoolean(REMEMBER, true);
+                        mEditor.putString(USERNAME, username);
+                        mEditor.putString(PASSWORD, password);
                     }else{
                         mEditor.clear();
                     }
@@ -124,19 +131,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Intent intent = new Intent();
                     intent.setClass(LoginActivity.this,
                             com.example.goodnightnote.activity.MainActivity.class);
-                    intent.putExtra("extra_User",username);
+                    intent.putExtra(EXTRA_USER,username);
                     startActivity(intent);
-                   }
-                else{
+                   } else{
                     String string = (String)LoginActivity.this.getResources().
                             getText(R.string.password_error);
                     Toast.makeText(LoginActivity.this, string,
                             Toast.LENGTH_SHORT).show();
                 }
             } else {
-                sShowText = (String)LoginActivity.this.getResources().
+                mShowText = (String)LoginActivity.this.getResources().
                         getText(R.string.no_this_count);
-                    Toast.makeText(LoginActivity.this, sShowText,
+                    Toast.makeText(LoginActivity.this, mShowText,
                         Toast.LENGTH_SHORT).show();
             }
         }

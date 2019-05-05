@@ -33,5 +33,4 @@ public class DateLine extends TextView {
 		//canvas.drawLine(0.0F, 40.0F, getWidth(), 40.0F, this.ePaint);
 		super.onDraw(canvas);
 	}
-
 }

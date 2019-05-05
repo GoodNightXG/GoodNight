@@ -15,17 +15,17 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SqliteHelper extends SQLiteOpenHelper {
 
-	  private final static String DATABASE_NAME = "luckydatabase.db";
+	  private final static String DATABASE_NAME = "myluckdatabase.db";
 	  private final static String NAME = "table_notepad";
 	  private final static String USER_TABLE  = "table_user";
 	  private final static int VERSION = 1;
 
 	  //拼写SQL语句
-	  public static final String CREATE_USER = "create table "+USER_TABLE
+	  private static final String CREATE_USER = "create table "+USER_TABLE
 			+" (username TEXT,password TEXT)";
-      public static final String CREARE_NOTE = "create table "+NAME
+      private static final String CREARE_NOTE = "create table "+NAME
 	        +" (id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,date TEXT,"
-			  +"content TEXT,type TEXT,user TEXT)";
+			  +"content TEXT,type INTEGER,user TEXT)";
 
 
 	  //构造函数
@@ -39,11 +39,10 @@ public class SqliteHelper extends SQLiteOpenHelper {
 	  	//执行SQL语句
 	    paramSQLiteDatabase.execSQL(CREATE_USER);
 		paramSQLiteDatabase.execSQL(CREARE_NOTE);
-
 	  }
 
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+	  @Override
+	  public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-	}
+	  }
 }

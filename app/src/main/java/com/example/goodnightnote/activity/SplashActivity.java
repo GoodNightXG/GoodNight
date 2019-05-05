@@ -26,8 +26,8 @@ public class SplashActivity extends Activity {
         // 设置没有标题栏
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
-        RelativeLayout layoutSplash=(RelativeLayout) findViewById(R.id.activity_splash);
-        AlphaAnimation alphaAnimation=new AlphaAnimation(0.1f,1.0f);
+        RelativeLayout layoutSplash = findViewById(R.id.activity_splash);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f,1.0f);
         //设置动画播放时长1000毫秒（1秒）
         alphaAnimation.setDuration(2000);
         layoutSplash.startAnimation(alphaAnimation);
@@ -40,7 +40,7 @@ public class SplashActivity extends Activity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 //页面的跳转
-                Intent intent=new Intent(SplashActivity.this,
+                Intent intent = new Intent(SplashActivity.this,
                         com.example.goodnightnote.login.LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -49,6 +49,5 @@ public class SplashActivity extends Activity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-
     }
 }

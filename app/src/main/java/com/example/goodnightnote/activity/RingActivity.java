@@ -7,17 +7,18 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Vibrator;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.example.goodnightnote.R;
 
 public class RingActivity extends AppCompatActivity {
     private Button mButton;
     private TextView mTextView;
+    private final static String CONTENT = "content";
+    private final static String ID = "id";
 
     @TargetApi(Build.VERSION_CODES.O)
     @Override
@@ -25,8 +26,8 @@ public class RingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ring);
         Intent intent = getIntent();
-        String content = intent.getStringExtra("content");
-        String id = intent.getStringExtra("id");
+        String content = intent.getStringExtra(CONTENT);
+        String id = intent.getStringExtra(ID);
         mButton = findViewById(R.id.bt_close);
         mTextView = findViewById(R.id.tv_content);
         mTextView.setText(content);

@@ -48,6 +48,8 @@
     <dimen name="height187">187dp</dimen>
     <dimen name="height111">111dp</dimen>
     <dimen name="height167">167dp</dimen>
+    <dimen name="height92">92dp</dimen>
+    <dimen name="end115">115dp</dimen>
 
 
 </resources>

@@ -19,12 +19,10 @@ import android.widget.EditText;
 public class DrawLine extends EditText {
 	private Paint mPaint;
 
-	// private Rect rect;
 	public DrawLine(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		mPaint = new Paint();
 
-		// rect=new Rect();
 		mPaint.setColor(Color.BLACK);
 		mPaint.setStyle(Paint.Style.STROKE);
 
@@ -34,14 +32,11 @@ public class DrawLine extends EditText {
 	public void onDraw(Canvas canvas) {
 		int count = getLineCount();
 		for (int i = 0; i < count + 11; i++) {
-			float[] pts = { 15.0F, (i + 1) * getLineHeight(),
-					this.getWidth() - 20.0F, (i + 1) * getLineHeight() };
+			float[] pts = { 15.0F, (i + 1) * getLineHeight(), this.getWidth() - 20.0F, (i + 1) * getLineHeight() };
 
 			// i*50-280,50增加则行间距大285增加则线靠上。
-			// canvas.drawLine(15, i*42, this.getWidth()-20,i*42, ePaint);
 			canvas.drawLines(pts, mPaint);
 		}
 		super.onDraw(canvas);
 	}
-
 }

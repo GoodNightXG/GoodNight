@@ -6,30 +6,17 @@ package com.example.goodnightnote.activity;
  *Description:增加新的笔记的业务逻辑
  */
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.*;
-
 import com.example.goodnightnote.view.Date;
 import com.example.goodnightnote.R;
-import com.example.goodnightnote.utils.SqliteHelper;
 import com.example.goodnightnote.utils.SqliteUtil;
 import com.example.goodnightnote.domian.Note;
 import com.example.goodnightnote.view.DrawLine;
-
-import java.util.Calendar;
 
 public class WriteActivity extends Activity {
 	private Button mCancelButton;
@@ -44,13 +31,14 @@ public class WriteActivity extends Activity {
 	private String mLabel;
 	private String mShowText;
 	private Note mLocalNote;
+	private final static String USERNANE = "username";
 
 	protected void onCreate(Bundle paramBundle) {
 		super.onCreate(paramBundle);
 		setContentView(R.layout.writedown);
 		this.mLocalNote = new Note();
 		this.mContext = this;
-		this.mUsername = getIntent().getStringExtra("username");
+		this.mUsername = getIntent().getStringExtra(USERNANE);
 		this.mTextView = findViewById(R.id.writedate);
 		this.mEditText = (DrawLine)findViewById(R.id.edittext);
 		this.mCancelButton = findViewById(R.id.bt_cancel);
@@ -87,8 +75,6 @@ public class WriteActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				SQLiteDatabase localSqLiteDatabase = new SqliteHelper(WriteActivity.this.mContext, null,
-						null, 0).getWritableDatabase();
 				SqliteUtil localSqliteUtil = new SqliteUtil();
 				String strContent = WriteActivity.this.mEditText.getText().toString();
 				if (strContent.equals("")) {
@@ -102,7 +88,7 @@ public class WriteActivity extends Activity {
 				mLocalNote.setmData(mDateNow);
 				mLocalNote.setmUser(mUsername);
 				mLocalNote.setmType(mLabel);
-				localSqliteUtil.add(localSqLiteDatabase, mLocalNote);
+				localSqliteUtil.add(WriteActivity.this, mLocalNote);
 				finish();
 			}
 		});

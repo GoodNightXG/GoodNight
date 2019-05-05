@@ -35,6 +35,10 @@ public class EditActivity extends Activity {
 	private TextView mTextView;
 	private String mLabel;
 	private Button mLabelButton;
+	private final static String DATEITEM = "dateItem";
+	private final static String CONTENTITEM = "contentItem";
+	private final static String IDITEM = "idItem";
+	private final static String TYPEITEM = "typeItem";
 
 	@Override
 	protected void onCreate(Bundle paramBundle) {
@@ -46,10 +50,12 @@ public class EditActivity extends Activity {
 		this.mCancelButton = findViewById(R.id.bt_cancel);
 		this.mSureButton = findViewById(R.id.bt_save);
 		this.mLabelButton = findViewById(R.id.bt_label);
-		this.mDate = getIntent().getStringExtra("dateItem");
-		this.mContent = getIntent().getStringExtra("contentItem");
-		this.mId = getIntent().getStringExtra("idItem");
-		this.mLabel = getIntent().getStringExtra("typeItem");
+
+		this.mDate = getIntent().getStringExtra(DATEITEM);
+		this.mContent = getIntent().getStringExtra(CONTENTITEM);
+		this.mId = getIntent().getStringExtra(IDITEM);
+		this.mLabel = getIntent().getStringExtra(TYPEITEM);
+
 		this.mEditText.setSelection(this.mEditText.length());
 		this.mEditText.setText(this.mContent);
 		this.mTextView.setText(this.mDate);
@@ -82,28 +88,22 @@ public class EditActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				SQLiteDatabase localSqLiteDatabase = new SqliteHelper(
-						EditActivity.this.mContext, null,
-						null, 0)
-						.getWritableDatabase();
 				Note localNote = new Note();
 				SqliteUtil localSqliteUtil = new SqliteUtil();
 				String strContent = EditActivity.this.mEditText.getText()
 						.toString();
 				if (strContent.equals("")) {
-					Toast.makeText(EditActivity.this.mContext,
-							R.string.empty_content,
+					Toast.makeText(EditActivity.this.mContext, R.string.empty_content,
 							Toast.LENGTH_SHORT).show();
 					return;
 				} else {
-					String strTitle = strContent.length() > 11 ? " "
-							+ strContent.substring(0, 11) : strContent;
+					String strTitle = strContent.length() > 11 ? " " + strContent.substring(0, 11) : strContent;
 					localNote.setmContent(strContent);
 					localNote.setmTitle(strTitle);
 					localNote.setmData(mDate);
 					localNote.setmId(mId);
 					localNote.setmType(mLabel);
-					localSqliteUtil.update(localSqLiteDatabase, localNote);
+					localSqliteUtil.update(EditActivity.this, localNote);
 					finish();
 				}
 			}

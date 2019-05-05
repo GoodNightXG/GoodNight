@@ -44,9 +44,10 @@
         android:layout_width="@dimen/width"
         android:layout_height="wrap_content"
         android:layout_below="@+id/et_password_new"
-        android:layout_marginTop="@dimen/top10"
+        android:layout_marginTop="@dimen/top13"
         android:inputType="textPassword"
-        android:layout_marginLeft="@dimen/left130" />
+        android:layout_marginLeft="@dimen/left130"
+        android:textSize="@dimen/textsize2"/>
 
     <TextView
         android:id="@+id/textView4"

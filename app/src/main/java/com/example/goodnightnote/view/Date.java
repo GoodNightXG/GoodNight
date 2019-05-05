@@ -9,6 +9,7 @@ import com.example.goodnightnote.R;
 import java.util.Calendar;
 
 public class Date {
+
 	public String getDate() {
 		Calendar localCalendar = Calendar.getInstance();
 		int instanceYear = localCalendar.get(1);

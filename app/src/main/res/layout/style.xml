@@ -42,7 +42,7 @@
         android:textSize="@dimen/textsize18" />
 
     <Button
-        android:id="@+id/stylebutton1"
+        android:id="@+id/bt_edit"
         android:layout_width="@dimen/width27"
         android:layout_height="@dimen/width27"
         android:layout_above="@id/changecontentview"
@@ -52,7 +52,7 @@
         android:focusable="false" />
 
     <Button
-        android:id="@+id/stylebutton2"
+        android:id="@+id/bt_delete"
         android:layout_width="@dimen/width27"
         android:layout_height="@dimen/width27"
         android:layout_above="@id/changecontentview"

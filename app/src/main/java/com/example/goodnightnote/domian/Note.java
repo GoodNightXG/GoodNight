@@ -65,4 +65,5 @@ public class Note {
 	public void setmUser(String mUser) {
 		this.mUser = mUser;
 	}
+
 }

@@ -10,4 +10,6 @@
     <color name="red">#96e21f1f</color>
     <color name="green">#9654d22e</color>
     <color name="blue">#9626d7d7</color>
+    <color name="other">#96e7e010</color>
+
 </resources>

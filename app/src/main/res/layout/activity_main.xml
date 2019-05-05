@@ -11,7 +11,7 @@
 
     <Button
         android:id="@+id/topButton"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/height55"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
