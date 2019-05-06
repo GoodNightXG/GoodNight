@@ -3,7 +3,6 @@ package com.example.goodnightnote.login;
  *Time:2019/04/23
  *Author: zuosc
  */
-import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

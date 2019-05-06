@@ -32,9 +32,9 @@ public class RingActivity extends AppCompatActivity {
         mTextView = findViewById(R.id.tv_content);
         mTextView.setText(content);
         NotificationManager manager = (NotificationManager) this.getSystemService(this.NOTIFICATION_SERVICE);
-        //设置通知,Android8.0以上，使用
+        //设置通知,Android8.0以上使用
         NotificationChannel channel = new NotificationChannel(id, getResources()
-                .getText(R.string.importantnotification),NotificationManager.IMPORTANCE_DEFAULT);
+                .getText(R.string.importantnotification), NotificationManager.IMPORTANCE_DEFAULT);
         manager.createNotificationChannel(channel);
         final Notification notification = new Notification.Builder(RingActivity.this, id)
                 .setSmallIcon(R.drawable.ic_launcher)

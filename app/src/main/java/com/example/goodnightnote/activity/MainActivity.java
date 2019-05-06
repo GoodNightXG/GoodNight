@@ -15,12 +15,15 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
 import com.example.goodnightnote.R;
 import com.example.goodnightnote.adapter.NoteAdapter;
 import com.example.goodnightnote.login.LoginActivity;
@@ -41,6 +44,7 @@ public class MainActivity extends Activity{
     private Spinner mSpinner;
     private Iterator<Note> mLocalIterator;
     private long mSelectedType;
+    private Button mExitButton;
     //键值对中的KEY
     private final static String EXTRA_USER = "extra_User";
     private final static String USERNANE = "username";
@@ -60,8 +64,9 @@ public class MainActivity extends Activity{
         this.mNumberButton = findViewById(R.id.number);
         this.mTopButton = findViewById(R.id.topButton);
         this.mListView = findViewById(R.id.listview);
-        this.mLogoutButton = findViewById(R.id.lobutton);
+        this.mLogoutButton = findViewById(R.id.bt_destroy);
         this.mSpinner = findViewById(R.id.spinner);
+        this.mExitButton = findViewById(R.id.bt_exit);
         this.mListView.setDivider(null);
         this.mListView.setOnItemClickListener(new ItemClick());
         //分类查看
@@ -87,11 +92,22 @@ public class MainActivity extends Activity{
                 startActivity(intent);
             }
         });
-        //注销按钮
+        //清空按钮
         this.mLogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 loDialog((String)MainActivity.this.getResources().getText(R.string.exit_app));
+            }
+        });
+
+        //退出登录
+        this.mExitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                intent.putExtra(EXIT, true);
+                startActivity(intent);
+                finish();
             }
         });
     }
@@ -178,8 +194,8 @@ public class MainActivity extends Activity{
                     UserTableUtil userTableUtil = new UserTableUtil();
                     SqliteUtil sqliteUtil = new SqliteUtil();
                     sqliteUtil.delete(MainActivity.this,mUsername);
-                    userTableUtil.delete(MainActivity.this,mUsername);
-                    exitApp();
+                    showUpdate();
+                    Toast.makeText(MainActivity.this, R.string.clear, Toast.LENGTH_SHORT).show();
                 }
             });
             mShowText = (String)MainActivity.this.getResources().getText(R.string.cancel);
@@ -189,16 +205,5 @@ public class MainActivity extends Activity{
                 }
             });
             dialog.show();
-        }
-
-        public void exitApp() {
-            Intent intent = new Intent();
-            intent.setClass(MainActivity.this, LoginActivity.class);
-
-            // 设置标记位
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            intent.putExtra(EXIT, true);
-            startActivity(intent);
         }
 }

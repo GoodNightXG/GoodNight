@@ -24,9 +24,10 @@
         android:id="@+id/number"
         android:layout_width="@dimen/height55"
         android:layout_height="@dimen/height55"
-        android:layout_alignParentRight="true"
         android:layout_alignRight="@id/topButton"
-        android:layout_marginRight="@dimen/right17"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="110dp"
         android:background="@drawable/number"
         android:textColor="@color/fcolor" />
 
@@ -38,16 +39,6 @@
         android:layout_marginTop="@dimen/top33"
         android:listSelector="@color/ocolor" />
 
-    <Button
-        android:id="@+id/lobutton"
-        android:layout_width="@dimen/width40"
-        android:layout_height="@dimen/top20"
-        android:layout_alignEnd="@+id/number"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/Bottom5"
-        android:background="@drawable/blue"
-        android:textSize="@dimen/textsize3"
-        android:text="@string/logout" />
 
     <Spinner
         android:id="@+id/spinner"
@@ -59,4 +50,22 @@
         android:layout_marginTop="@dimen/top0"
         android:entries="@array/spinarr" />
 
+    <Button
+        android:id="@+id/bt_exit"
+        android:layout_width="@dimen/top33"
+        android:layout_height="@dimen/top33"
+        android:layout_alignBottom="@+id/topButton"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/top13"
+        android:layout_marginBottom="@dimen/top13"
+        android:background="@drawable/ic_logout" />
+
+    <Button
+        android:id="@+id/bt_destroy"
+        android:layout_width="@dimen/top33"
+        android:layout_height="@dimen/top33"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="@dimen/line3"
+        android:background="@drawable/ic_destroy" />
 </RelativeLayout>

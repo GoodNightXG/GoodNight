@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.goodnightnote.R;
 import com.example.goodnightnote.utils.UserTableUtil;
 
@@ -33,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private final static String USERNAME = "Username";
     private final static String PASSWORD = "Password";
     private final static String PASSWORDS = "password";
-    private final static String EXIT = "exit";
+    private final static String CHANGE_USER = "change";
     private final static String EXTRA_USER = "extra_User";
 
     @Override
@@ -49,29 +48,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mCheckBox = findViewById(R.id.cb_rememberpwd);
         mLoginButton.setOnClickListener(this);
         mRegisterButton.setOnClickListener(this);
-        //记住密码默认为false
-        Boolean remember = mSharedPreference.getBoolean(REMEMBER, true);
+        //自动登录默认为false
+        Boolean remember = mSharedPreference.getBoolean(REMEMBER, false);
+        Boolean change = getIntent().getBooleanExtra(CHANGE_USER, false);
         if(remember){
             String username = mSharedPreference.getString(USERNAME,"");
             String password = mSharedPreference.getString(PASSWORD, "");
-            mCheckBox.setChecked(true);
-            check(username , password);
-            mUsernameEdit.setText(username);
-            mEditPassword.setText(password);
-        }
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        if (intent != null) {
-            // 是否退出App的标识
-            boolean isExitApp = intent.getBooleanExtra(EXIT, false);
-            if (isExitApp) {
-                // 关闭自身
-                this.finish();
+            if(change) {
+                mCheckBox.setChecked(false);
             } else {
-
+                mCheckBox.setChecked(true);
+                check(username , password);
+                finish();
             }
         } else {
 
@@ -96,34 +84,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
         }
     }
+
     //验证用户名密码
     private void check(String username, String password){
         UserTableUtil userTableUtil = new UserTableUtil();
-
         //判断非空
-        if (username .equals("")  || password .equals("")){
+        if (username.equals("") || password.equals("")){
             return;
         }else {
             Cursor cursor = userTableUtil.query(LoginActivity.this, username);
             //判断用户是否存在
-            if (cursor.getCount() != 0) {
+            if(cursor.getCount() != 0) {
                 //若不调用该方法，会产生CursorIndexOutOfBoundsException
                 cursor.moveToFirst();
                 String pwd =
                         cursor.getString(cursor.getColumnIndex(PASSWORDS));
                 //判断密码是否正确
-                if (pwd.equals(password)) {
+                if(pwd.equals(password)) {
                     mShowText = (String)LoginActivity.this.getResources().
                             getText(R.string.login_success);
-                    Toast.makeText(LoginActivity.this,mShowText,
+                    Toast.makeText(LoginActivity.this,mShowText + username,
                             Toast.LENGTH_SHORT).show();
                     mEditor = mSharedPreference.edit();
                     //判断是否勾选记住密码
-                    if(mCheckBox.isChecked()){
+                    if(mCheckBox.isChecked()) {
                         mEditor.putBoolean(REMEMBER, true);
                         mEditor.putString(USERNAME, username);
                         mEditor.putString(PASSWORD, password);
-                    }else{
+                    } else {
                         mEditor.clear();
                     }
                     mEditor.apply();
@@ -133,7 +121,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             com.example.goodnightnote.activity.MainActivity.class);
                     intent.putExtra(EXTRA_USER,username);
                     startActivity(intent);
-                   } else{
+                   } else {
                     String string = (String)LoginActivity.this.getResources().
                             getText(R.string.password_error);
                     Toast.makeText(LoginActivity.this, string,

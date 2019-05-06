@@ -12,7 +12,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-
 public class UserTableUtil {
 
 	private final static String TABLE = "table_user";
@@ -34,17 +33,10 @@ public class UserTableUtil {
 	public Cursor query(Context context, String username){
 		sqLiteDatabase = new SqliteHelper(context,null, null,0 )
 				.getWritableDatabase();
+		//close
 		Cursor cursor =
 		sqLiteDatabase.query(TABLE, new String[] {PASSWORD},USERNAME + "='"+username+"'",
 				null, null, null, null);
 		return cursor;
-	}
-	//删除操作
-	public void delete(Context context, String username) {
-		sqLiteDatabase = new SqliteHelper(context,null, null,0 )
-				.getWritableDatabase();
-		sqLiteDatabase.delete(TABLE, USERNAME + " = '" + username+"'", null);
-		sqLiteDatabase.close();
-
 	}
 }
